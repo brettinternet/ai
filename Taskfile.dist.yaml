@@ -25,3 +25,37 @@ tasks:
     desc: Start AI agent
     aliases: [claude]
     cmd: claude
+
+  ai:docker:
+    desc: Start AI agent in Docker
+    aliases: [claude:docker]
+    cmds:
+      - task: docker:build
+      - task: docker:run
+
+  docker:build:
+    desc: Build Docker image for AI agent
+    aliases: [claude:docker:build]
+    cmd: >-
+      docker build
+      -t brettinternet/claude:latest
+      -f Dockerfile.claude .
+
+  docker:run:
+    desc: Run Docker container for AI agent
+    aliases: [claude:docker:run]
+    cmd: >-
+      docker run --rm -it
+      --name claude
+      -e CLAUDE_USER_ID=$(id -u)
+      -e CLAUDE_GROUP_ID=$(id -g)
+      -v ~/.claude:/home/claude/.claude
+      -v ~/.gitconfig:/home/claude/.gitconfig:ro
+      -v ~/.claude.json:/home/claude/.claude.json
+      -v "$(pwd):/workspace"
+      brettinternet/claude:latest
+
+  ccusage:
+    desc: Run ccusage tool
+    aliases: [cc]
+    cmd: ccusage {{.CLI_ARGS}}

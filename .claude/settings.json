@@ -1,4 +1,25 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(docker run:*)",
+      "Bash(docker build:*)",
+      "Bash(find:*)",
+      "Bash(task:*)",
+      "WebFetch(domain:*)",
+      "mcp__filesystem__list_directory",
+      "mcp__filesystem__list_allowed_directories",
+      "mcp__filesystem__directory_tree",
+      "mcp__sequentialthinking__sequentialthinking"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "context7",
+    "sequentialthinking",
+    "playwright",
+    "git",
+    "filesystem",
+    "fetch"
+  ],
   "hooks": {
     "Notification": [
       {
@@ -21,7 +42,7 @@
           },
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Glass.aiff"
+            "command": "task hooks:sound"
           }
         ]
       }

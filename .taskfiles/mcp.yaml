@@ -11,7 +11,7 @@ tasks:
     env:
       CWD: "{{.ROOT_DIR}}"
     cmd: >-
-      docker run --rm -i
+      docker run -i --rm --init --pull=always
       --mount type=bind,src=${CWD},dst=/workspace
       mcp/git
 
@@ -20,7 +20,7 @@ tasks:
       CWD: "{{.ROOT_DIR}}"
       PROJECT_NAME: "{{.PROJECT_NAME}}"
     cmd: >-
-      docker run -i --rm
+      docker run -i --rm --init --pull=always
       --mount type=bind,src=${CWD},dst=/projects/${PROJECT_NAME}
       mcp/filesystem
       /projects

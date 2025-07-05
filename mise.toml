@@ -1,10 +1,12 @@
 [tools]
 gh = "latest"
 jq = "latest"
+node = "lts"
 task = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
 "npm:@upstash/context7-mcp" = "latest"
 "npm:task-master-ai" = "latest"
+"npm:ccusage" = "latest"
 
 [settings]
 disable_backends = ["asdf"]

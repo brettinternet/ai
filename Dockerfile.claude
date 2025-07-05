@@ -1,0 +1,54 @@
+ARG RUNTIME_IMAGE_VERSION=bookworm-slim
+
+FROM debian:${RUNTIME_IMAGE_VERSION}
+
+LABEL maintainer="brettinternet"
+LABEL description="Claude"
+
+WORKDIR /workspace
+
+# Install runtime dependencies
+RUN apt-get update && \
+    apt-get -y --no-install-recommends install \
+    sudo \
+    ca-certificates \
+    build-essential \
+    inotify-tools \
+    gpg \
+    gpg-agent \
+    curl \
+    git \
+    vim \
+    wget \
+    jq && \
+    rm -rf /var/lib/apt/lists/*
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# Create default claude user and install tools
+RUN groupadd -g 1000 claude && \
+    useradd -u 1000 -g 1000 -m -s /bin/bash claude && \
+    usermod -aG sudo claude && \
+    echo "claude ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Install mise and Claude as default user
+USER claude
+RUN curl -s https://mise.run | sh >/dev/null 2>&1
+RUN curl -fsSL https://claude.ai/install.sh | bash >/dev/null 2>&1
+
+# Switch back to root to set up runtime script
+USER root
+
+# Copy entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Set environment variables for mise and paths
+ENV CLAUDE_USER_ID=1000
+ENV CLAUDE_GROUP_ID=1000
+ENV CLAUDE_USERNAME=claude
+
+# Create volume for Claude configuration
+VOLUME ["/home/claude/.claude"]
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh", "claude"]

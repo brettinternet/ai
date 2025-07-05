@@ -10,6 +10,7 @@ on:
 
 env:
   DOCKER_USERNAME: brettinternet
+  DOCKERFILE: Dockerfile.claude
 
 jobs:
   build-and-publish-container:
@@ -55,14 +56,14 @@ jobs:
           labels: |
             org.opencontainers.image.name=${{ github.event.repository.name }}
             org.opencontainers.image.source=https://github.com/${{ github.repository }}/tree/main
-            org.opencontainers.image.description=Put Claude to work in a containerized sandbox.
+            org.opencontainers.image.description=Run Claude in a containerized sandbox.
             org.opencontainers.image.licenses=MIT
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: Dockerfile
+          file: ${{ env.DOCKERFILE }}
           platforms: arm64,amd64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
@@ -78,5 +79,5 @@ jobs:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PAT }}
           repository: ${{ env.DOCKER_USERNAME }}/${{ github.event.repository.name }}
-          short-description: Put Claude to work in a containerized sandbox.
+          short-description: Run Claude in a containerized sandbox.
           readme-filepath: README.md

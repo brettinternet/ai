@@ -5,7 +5,25 @@
     },
     "sequentialthinking": {
       "command": "docker",
-      "args": ["run", "--rm", "-i", "mcp/sequentialthinking"]
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "--init",
+        "--pull=always",
+        "mcp/sequentialthinking"
+      ]
+    },
+    "playwright": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "--init",
+        "--pull=always",
+        "mcr.microsoft.com/playwright/mcp"
+      ]
     },
     "git": {
       "command": "task",
@@ -17,7 +35,7 @@
     },
     "fetch": {
       "command": "docker",
-      "args": ["run", "-i", "--rm", "mcp/fetch"]
+      "args": ["run", "-i", "--rm", "--init", "--pull=always", "mcp/fetch"]
     }
   }
 }
