@@ -54,7 +54,9 @@ jobs:
             ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
             ghcr.io/${{ github.actor }}/${{ env.IMAGE_NAME }}
           flavor: latest=auto
-          tags: type=ref,event=branch
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=branch
           labels: |
             org.opencontainers.image.name=${{ env.IMAGE_NAME }}
             org.opencontainers.image.source=https://github.com/${{ github.repository }}/tree/main
