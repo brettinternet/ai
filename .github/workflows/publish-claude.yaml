@@ -11,6 +11,7 @@ on:
 env:
   DOCKER_USERNAME: brettinternet
   DOCKERFILE: Dockerfile.claude
+  IMAGE_NAME: claude
 
 jobs:
   build-and-publish-container:
@@ -50,11 +51,12 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ghcr.io/${{ github.repository }}
+            ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
+            ghcr.io/${{ github.actor }}/${{ env.IMAGE_NAME }}
           flavor: latest=auto
           tags: type=ref,event=branch
           labels: |
-            org.opencontainers.image.name=${{ github.event.repository.name }}
+            org.opencontainers.image.name=${{ env.IMAGE_NAME }}
             org.opencontainers.image.source=https://github.com/${{ github.repository }}/tree/main
             org.opencontainers.image.description=Run Claude in a containerized sandbox.
             org.opencontainers.image.licenses=MIT
@@ -78,6 +80,6 @@ jobs:
         with:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PAT }}
-          repository: ${{ env.DOCKER_USERNAME }}/${{ github.event.repository.name }}
+          repository: ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
           short-description: Run Claude in a containerized sandbox.
           readme-filepath: README.md
