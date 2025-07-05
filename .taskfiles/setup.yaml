@@ -7,6 +7,7 @@ tasks:
     desc: Install dependencies
     cmds:
       - task: mise
+      - task: create-env-file
 
   mise:
     desc: Install workstation dependencies
@@ -16,3 +17,10 @@ tasks:
     preconditions:
       - sh: command -v mise
         msg: Mise is not installed
+
+  create-env-file:
+    desc: Create local environment variable file
+    cmds:
+      - cp example.env .env
+    status:
+      - test -f .env

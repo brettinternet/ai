@@ -7,6 +7,7 @@ task = "latest"
 "npm:@upstash/context7-mcp" = "latest"
 "npm:task-master-ai" = "latest"
 "npm:ccusage" = "latest"
+"npm:@playwright/mcp" = "latest"
 
 [settings]
 disable_backends = ["asdf"]
