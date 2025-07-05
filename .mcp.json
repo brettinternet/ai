@@ -4,38 +4,22 @@
       "command": "context7-mcp"
     },
     "sequentialthinking": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "--init",
-        "--pull=always",
-        "mcp/sequentialthinking"
-      ]
+      "command": "mcp-server-sequential-thinking"
     },
     "playwright": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "--init",
-        "--pull=always",
-        "mcr.microsoft.com/playwright/mcp"
-      ]
+      "command": "mcp-server-playwright"
     },
     "git": {
-      "command": "task",
-      "args": ["mcp:git"]
+      "command": "uvx",
+      "args": ["mcp-server-git", "--repository", "."]
     },
     "filesystem": {
-      "command": "task",
-      "args": ["mcp:fs"]
+      "command": "mcp-server-filesystem",
+      "args": ["."]
     },
     "fetch": {
-      "command": "docker",
-      "args": ["run", "-i", "--rm", "--init", "--pull=always", "mcp/fetch"]
+      "command": "uvx",
+      "args": ["mcp-server-fetch"]
     }
   }
 }

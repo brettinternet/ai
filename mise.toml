@@ -3,11 +3,15 @@ gh = "latest"
 jq = "latest"
 node = "lts"
 task = "latest"
+uv = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
-"npm:@upstash/context7-mcp" = "latest"
 "npm:task-master-ai" = "latest"
 "npm:ccusage" = "latest"
+"npm:@upstash/context7-mcp" = "latest"
 "npm:@playwright/mcp" = "latest"
+"npm:@modelcontextprotocol/server-sequential-thinking" = "latest"
+"npm:@modelcontextprotocol/server-filesystem" = "latest"
 
 [settings]
 disable_backends = ["asdf"]
+pipx_uvx = true

@@ -6,7 +6,6 @@ dotenv: [.env]
 
 includes:
   setup: .taskfiles/setup.yaml
-  mcp: .taskfiles/mcp.yaml
   hooks: .taskfiles/hooks.yaml
 
 tasks:
