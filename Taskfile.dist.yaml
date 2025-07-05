@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+dotenv: [.env]
+
+includes:
+  setup: .taskfiles/setup.yaml
+  mcp: .taskfiles/mcp.yaml
+  hooks: .taskfiles/hooks.yaml
+
+tasks:
+  default:
+    silent: true
+    cmds:
+      - task -l
+
+  init:
+    desc: Install dependencies and setup environment
+    aliases: [setup]
+    cmds:
+      - task: setup:init
+
+  ai:
+    desc: Start AI agent
+    aliases: [claude]
+    cmd: claude

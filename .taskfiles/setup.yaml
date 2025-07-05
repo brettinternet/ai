@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+  init:
+    desc: Install dependencies
+    cmds:
+      - task: mise
+
+  mise:
+    desc: Install workstation dependencies
+    cmds:
+      - mise trust --silent -a
+      - mise install
+    preconditions:
+      - sh: command -v mise
+        msg: Mise is not installed

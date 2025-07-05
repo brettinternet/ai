@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "context7": {
+      "command": "context7-mcp"
+    },
+    "sequentialthinking": {
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "mcp/sequentialthinking"]
+    },
+    "git": {
+      "command": "task",
+      "args": ["mcp:git"]
+    },
+    "filesystem": {
+      "command": "task",
+      "args": ["mcp:fs"]
+    },
+    "fetch": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/fetch"]
+    }
+  }
+}

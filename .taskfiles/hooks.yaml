@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+vars:
+  PUSHOVER_SCRIPT: "{{.ROOT_DIR}}/.taskfiles/pushover.sh"
+
+tasks:
+  pushover:
+    desc: Send a Pushover notification
+    cmd: >-
+      MESSAGE=$(cat | jq -r '"Claude completed: \(.tool_input.description // .tool_input.command // "Task completed")"');
+      {{.PUSHOVER_SCRIPT}} "$MESSAGE" "Claude AI"
+
+  pushover-test:
+    desc: Send a Pushover test notification
+    cmd: >-
+      {{.PUSHOVER_SCRIPT}} "Test" "Claude AI"
