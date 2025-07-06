@@ -1,4 +1,5 @@
 [tools]
+bun = "latest"
 gh = "latest"
 jq = "latest"
 node = "lts"
@@ -9,5 +10,6 @@ uv = "latest"
 "npm:ccusage" = "latest"
 
 [settings]
-disable_backends = ["asdf"]
-pipx_uvx = true
+disable_backends = ["asdf", "pipx"]
+pipx.uvx = true
+npm.bun = true
