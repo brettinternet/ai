@@ -1,0 +1,12 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+  zen:
+    desc: Zen MCP server with .env
+    cmd: >-
+      uvx
+      --from
+      git+https://github.com/BeehiveInnovations/zen-mcp-server.git
+      zen-mcp-server

@@ -6,14 +6,13 @@
       "Bash(find:*)",
       "Bash(task:*)",
       "WebFetch(domain:*)",
-      "mcp__filesystem__list_directory",
-      "mcp__filesystem__list_allowed_directories",
-      "mcp__filesystem__directory_tree",
-      "mcp__sequentialthinking__sequentialthinking",
+      "mcp__filesystem",
+      "mcp__sequentialthinking",
       "mcp__serena"
     ]
   },
   "enabledMcpjsonServers": [
+    "zen",
     "context7",
     "sequentialthinking",
     "playwright",
