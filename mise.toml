@@ -7,10 +7,6 @@ uv = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
 "npm:task-master-ai" = "latest"
 "npm:ccusage" = "latest"
-"npm:@upstash/context7-mcp" = "latest"
-"npm:@playwright/mcp" = "latest"
-"npm:@modelcontextprotocol/server-sequential-thinking" = "latest"
-"npm:@modelcontextprotocol/server-filesystem" = "latest"
 
 [settings]
 disable_backends = ["asdf"]

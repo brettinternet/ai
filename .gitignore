@@ -1,5 +1,6 @@
 .claude/settings.local.json
 .claude.json
 CLAUDE.local.md
+.task
 Taskfile.y?ml
 .env
