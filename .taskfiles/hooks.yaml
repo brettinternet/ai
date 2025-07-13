@@ -3,7 +3,7 @@
 version: "3"
 
 vars:
-  PUSHOVER_SCRIPT: "{{.ROOT_DIR}}/.taskfiles/pushover.sh"
+  PUSHOVER_SCRIPT: "{{.ROOT_DIR}}/scripts/pushover.sh"
 
 tasks:
   sound:
