@@ -1,0 +1,32 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+vars:
+  PUSHOVER_SCRIPT: "{{.ROOT_DIR}}/scripts/pushover.sh"
+
+tasks:
+  sound:
+    desc: Play a sound notification
+    cmd: afplay /System/Library/Sounds/{{.SOUND | default "Blow" }}.aiff
+
+  pushover:
+    desc: Send a Pushover notification
+    cmd: |-
+      HOOK_DATA=$(cat);
+      TITLE=$(echo "$HOOK_DATA" | jq -r '.title // "Claude AI"' 2>/dev/null || echo "Claude AI");
+      MESSAGE=$(echo "$HOOK_DATA" | jq -r '.message // "Task completed"' 2>/dev/null || echo "Claude completed a task");
+      {{.PUSHOVER_SCRIPT}} "$MESSAGE" "$TITLE"
+
+  pushover:send:
+    desc: Send a Pushover notification with a custom message
+    requires:
+      vars: [TITLE, MESSAGE]
+    cmd: "{{.PUSHOVER_SCRIPT}} {{.MESSAGE}} {{.TITLE}}"
+
+  pushover:test:
+    desc: Send a Pushover test notification
+    cmd:
+      task: pushover:send
+      vars:
+        MESSAGE: Test notification from AI repo Taskfile

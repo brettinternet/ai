@@ -7,8 +7,9 @@ dotenv: [.env]
 includes:
   setup: .taskfiles/setup.yaml
   hooks: .taskfiles/hooks.yaml
+  notify: .taskfiles/notify.yaml
   mcp: .taskfiles/mcp.yaml
-  scripts: .taskfiles/scripts.yaml
+  github: .taskfiles/github.yaml
 
 tasks:
   default:
