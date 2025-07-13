@@ -29,9 +29,9 @@ An incomprehensive collection of Claude AI and MCP tools configuration that can 
 task init
 ```
 
-### Scripts
+### Prompts
 
-Ask Claude to summarize your work from yesterday. Claude then runs `task scripts:activity` or `task scripts:activity DAY=fri` to pull GitHub activity.
+1. Ask Claude to summarize your work from yesterday. Claude then runs `task scripts:activity` or `task scripts:activity DAY=fri` to pull GitHub activity.
 
 ### Running Claude AI
 

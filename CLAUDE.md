@@ -4,6 +4,10 @@
 
 This repository is an AI development environment and tools collection demonstrating Claude AI integration with various MCP servers. It provides a containerized development environment with automation, notifications, and GitHub integration tools.
 
+## Setup
+
+This project uses `mise` for dependencies. Claude's shell environment may not inherit access to executables installed with this method, so it may be required to run executables with `mise exec`. E.g. to run a `gh` command use `mise exec gh -- gh`.
+
 ## Core Commands
 
 ### Setup and Development
