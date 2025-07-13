@@ -31,7 +31,7 @@ task init
 
 ### Prompts
 
-1. Ask Claude to summarize your work from yesterday. Claude then runs `task scripts:activity` or `task scripts:activity DAY=fri` to pull GitHub activity.
+1. Ask Claude to summarize your work from yesterday. Claude then runs `task github:myactivity` or `task github:myactivity DAY=fri` to pull GitHub activity and summarize the work.
 
 ### Running Claude AI
 

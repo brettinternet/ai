@@ -11,6 +11,7 @@ This project uses `mise` for dependencies. Claude's shell environment may not in
 ## Core Commands
 
 ### Setup and Development
+
 ```bash
 task init                  # Install dependencies and setup environment
 task ai                    # Start Claude AI locally
@@ -24,16 +25,18 @@ Use this script to determine what was accomplished on the previous working day.
 
 ```bash
 # Get recent GitHub activity for standup reports
-task scripts:activity DAY=thu REPOS=org/repo1,org/repo2
-GITHUB_REPOS=org/repo task scripts:activity DAY=friday
-task scripts:activity REPOS=org/repo                    # Defaults to last workday
-GITHUB_ORG=org task scripts:activity                    # all repos
+task github:myactivity DAY=thu REPOS=org/repo1,org/repo2
+GITHUB_REPOS=org/repo task github:activity DAY=friday
+task github:myactivity REPOS=org/repo                      # Defaults to last workday
+GITHUB_ORG=org task github:activity                        # all repos
 ```
 
 **Standup Summary Instructions:**
-When the user asks for their standup summary, summary of yesterday's work, or what they accomplished, automatically run the GitHub activity script and provide a concise summary formatted for standup meetings. The summary should be:
+When the user asks for their standup summary, summary of yesterday's work, or what they accomplished, automatically run the GitHub activity script `task github:myactivity` and provide a concise summary formatted for standup meetings. To get a summary for another user, find the user on GitHub and put the username as an argument to `task github:activity -- `.
 
-- **Brief and accessible**: 2-3 bullet points maximum
+The summary should be:
+
+- **Brief and accessible**: 3-5 bullet points maximum
 - **Focus on outcomes**: What was accomplished, not technical details
 - **Standup-friendly**: Easy to recite in a team meeting
 - **Action-oriented**: Use active language describing completed work
@@ -46,6 +49,8 @@ Format example:
 - Reviewed and approved [PR #5678](https://github.com/org/repo/pull/5678) for authentication improvements
 
 **Important**: Always include GitHub links for PRs, commits, and other relevant items. Never use vague descriptions like "reviewed multiple PRs" - instead specify which PRs were reviewed with their numbers and links.
+
+Write the result of this summary to a new file in this repository under a `/tmp` directory.
 
 ### Notifications
 
