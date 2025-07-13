@@ -29,6 +29,10 @@ An incomprehensive collection of Claude AI and MCP tools configuration that can 
 task init
 ```
 
+### Scripts
+
+Ask Claude to summarize your work from yesterday. Claude then runs `task scripts:standup` or `task scripts:standup DAY=fri` to pull GitHub activity.
+
 ### Running Claude AI
 
 **Local execution**:

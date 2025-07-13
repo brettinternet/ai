@@ -9,7 +9,7 @@ This repository is an AI development environment and tools collection demonstrat
 ### Setup and Development
 ```bash
 task init                  # Install dependencies and setup environment
-task ai                    # Start Claude AI locally  
+task ai                    # Start Claude AI locally
 task ai:docker             # Start Claude AI in Docker container
 task -l                    # List all available tasks
 ```
@@ -20,10 +20,26 @@ Use this script to determine what was accomplished on the previous working day.
 
 ```bash
 # Get recent GitHub activity for standup reports
-task scripts:standup DAY=thu REPOS=org/repo1,org/repo2
-task scripts:standup DAY=friday REPOS=org/repo
-task scripts:standup REPOS=org/repo                # Defaults to last workday
+task scripts:activity DAY=thu REPOS=org/repo1,org/repo2
+GITHUB_REPOS=org/repo task scripts:activity DAY=friday
+task scripts:activity REPOS=org/repo                    # Defaults to last workday
+GITHUB_ORG=org task scripts:activity                    # all repos
 ```
+
+**Standup Summary Instructions:**
+When the user asks for their standup summary, summary of yesterday's work, or what they accomplished, automatically run the GitHub activity script and provide a concise summary formatted for standup meetings. The summary should be:
+
+- **Brief and accessible**: 2-3 bullet points maximum
+- **Focus on outcomes**: What was accomplished, not technical details
+- **Standup-friendly**: Easy to recite in a team meeting
+- **Action-oriented**: Use active language describing completed work
+
+Format example:
+- Enhanced device simulation with function generation feature
+- Improved development environment configuration
+- Opened PR for checkin function improvements
+
+Avoid technical jargon, commit SHAs, timestamps, or repository names unless specifically relevant.
 
 ### Notifications
 

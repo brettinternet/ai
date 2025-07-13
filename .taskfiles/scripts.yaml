@@ -3,10 +3,8 @@
 version: "3"
 
 tasks:
-  standup:
+  activity:
     desc: List recent github events for org from specified day (defaults to last workday)
-    requires:
-      vars: [REPOS]
     vars:
       CURRENT_USERNAME:
         sh: gh api user | jq -r '.login'

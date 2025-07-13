@@ -2,10 +2,27 @@
 
 set -euo pipefail
 
-# Check if GITHUB_ORG is set
+# Function to derive GitHub org from repository list
+derive_github_org() {
+    local repos="$1"
+    if [[ -n "$repos" ]]; then
+        # Extract org from first repository (format: org/repo)
+        echo "$repos" | cut -d',' -f1 | cut -d'/' -f1
+    fi
+}
+
+# Check if GITHUB_ORG is set, if not try to derive it
 if [[ -z "${GITHUB_ORG:-}" ]]; then
-    echo "Error: GITHUB_ORG environment variable is not set" >&2
-    exit 1
+    # Try to derive from REPO parameter first, then GITHUB_REPOS env var
+    DERIVED_ORG=$(derive_github_org "${3:-${GITHUB_REPOS:-}}")
+    if [[ -n "$DERIVED_ORG" ]]; then
+        GITHUB_ORG="$DERIVED_ORG"
+        echo "Derived GitHub org: $GITHUB_ORG" >&2
+    else
+        echo "Error: GITHUB_ORG environment variable is not set and cannot be derived from repositories" >&2
+        echo "Please set GITHUB_ORG or provide repositories in format 'org/repo'" >&2
+        exit 1
+    fi
 fi
 
 # Function to get target date
@@ -229,9 +246,12 @@ TARGET_DATE_START="${TARGET_DATE}T00:00:00Z"
 NEXT_DATE=$(date -d "$TARGET_DATE + 1 day" +%Y-%m-%d 2>/dev/null || date -v+1d -j -f "%Y-%m-%d" "$TARGET_DATE" +%Y-%m-%d)
 TARGET_DATE_END="${NEXT_DATE}T07:59:59Z"  # Covers up to midnight-8am next day UTC (covers most US timezones)
 
-if [[ -n "$REPO" ]]; then
+# Use provided REPO param, or fallback to GITHUB_REPOS environment variable
+REPOS_TO_CHECK="${REPO:-${GITHUB_REPOS:-}}"
+
+if [[ -n "$REPOS_TO_CHECK" ]]; then
     # Specific repo(s) mode
-    IFS=',' read -ra REPO_LIST <<< "$REPO"
+    IFS=',' read -ra REPO_LIST <<< "$REPOS_TO_CHECK"
     if [[ -n "$USERNAME" ]]; then
         echo "Getting GitHub activity for user '$USERNAME' in ${#REPO_LIST[@]} repo(s) on $TARGET_DATE..."
     else
