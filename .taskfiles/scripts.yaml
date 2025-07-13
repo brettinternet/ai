@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+  standup:
+    desc: List recent github events for org from specified day (defaults to last workday)
+    requires:
+      vars: [REPOS]
+    vars:
+      CURRENT_USERNAME:
+        sh: gh api user | jq -r '.login'
+    cmd: "{{.ROOT_DIR}}/scripts/github-activity.sh {{.DAY}} {{.CURRENT_USERNAME}} {{.REPOS}}"

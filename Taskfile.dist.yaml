@@ -8,6 +8,7 @@ includes:
   setup: .taskfiles/setup.yaml
   hooks: .taskfiles/hooks.yaml
   mcp: .taskfiles/mcp.yaml
+  scripts: .taskfiles/scripts.yaml
 
 tasks:
   default:
