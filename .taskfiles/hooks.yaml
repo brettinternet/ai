@@ -6,11 +6,27 @@ vars:
   PUSHOVER_SCRIPT: "{{.ROOT_DIR}}/scripts/pushover.sh"
 
 tasks:
+  notification:
+    desc: Handle Claude notification hook
+    cmds:
+      - task: sound
+        vars:
+          SOUND: Purr
+
+  stop:
+    desc: Handle Claude stop hook
+    cmds:
+      - task: sound
+        vars:
+          SOUND: Blow
+
   sound:
+    internal: true
     desc: Play a sound notification
-    cmd: afplay /System/Library/Sounds/Blow.aiff
+    cmd: afplay /System/Library/Sounds/{{.SOUND | default "Blow" }}.aiff
 
   pushover:
+    internal: true
     desc: Send a Pushover notification
     cmd: |-
       HOOK_DATA=$(cat);
@@ -19,6 +35,7 @@ tasks:
       {{.PUSHOVER_SCRIPT}} "$MESSAGE" "$TITLE"
 
   pushover:send:
+    internal: true
     desc: Send a Pushover notification with a custom message
     requires:
       vars: [TITLE, MESSAGE]

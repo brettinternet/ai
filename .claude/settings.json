@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "task hooks:pushover"
+            "command": "task hooks:notification"
           }
         ]
       }
@@ -39,11 +39,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "task hooks:pushover"
-          },
-          {
-            "type": "command",
-            "command": "task hooks:sound"
+            "command": "task hooks:stop"
           }
         ]
       }
