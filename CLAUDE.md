@@ -37,13 +37,15 @@ When the user asks for their standup summary, summary of yesterday's work, or wh
 - **Focus on outcomes**: What was accomplished, not technical details
 - **Standup-friendly**: Easy to recite in a team meeting
 - **Action-oriented**: Use active language describing completed work
+- **Specific and linked**: Include specific PR numbers, commit references, and GitHub links for easy access
+- **Avoid vague statements**: Replace generic phrases like "reviewed multiple PRs" with specific PR numbers and links
 
 Format example:
-- Enhanced device simulation with function generation feature
-- Improved development environment configuration
-- Opened PR for checkin function improvements
+- Enhanced device simulation with function generation feature in [PR #1234](https://github.com/org/repo/pull/1234)
+- Improved development environment configuration with [commit abc1234](https://github.com/org/repo/commit/abc1234567890)
+- Reviewed and approved [PR #5678](https://github.com/org/repo/pull/5678) for authentication improvements
 
-Avoid technical jargon, commit SHAs, timestamps, or repository names unless specifically relevant.
+**Important**: Always include GitHub links for PRs, commits, and other relevant items. Never use vague descriptions like "reviewed multiple PRs" - instead specify which PRs were reviewed with their numbers and links.
 
 ### Notifications
 

@@ -77,7 +77,9 @@ get_event_details() {
         "PushEvent")
             local push_ref=$(echo "$payload" | jq -r '.ref // "unknown"')
             local push_size=$(echo "$payload" | jq -r '.size // 0')
+            local branch_name=$(echo "$push_ref" | sed 's|refs/heads/||')
             echo "  Branch: $push_ref ($push_size commits)"
+            echo "  Branch Link: https://github.com/$repo/tree/$branch_name"
 
             # Extract and deduplicate commits
             local commits_json=$(echo "$payload" | jq -c --arg username "$4" '
@@ -92,7 +94,7 @@ get_event_details() {
             ' 2>/dev/null)
 
             if [[ "$commits_json" != "[]" && "$commits_json" != "null" ]]; then
-                echo "$commits_json" | jq -r '.[] | .message + "|" + .sha[0:7]' 2>/dev/null | while IFS='|' read -r commit_message commit_sha; do
+                echo "$commits_json" | jq -r '.[] | .message + "|" + .sha[0:7] + "|" + .sha' 2>/dev/null | while IFS='|' read -r commit_message commit_sha full_sha; do
                     if [[ -n "$commit_message" && -n "$commit_sha" ]]; then
                         # Create a key for deduplication (normalize message and escape special chars)
                         local commit_key=$(echo "$commit_message" | tr -d '\n\r' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9 ]/_/g')
@@ -100,7 +102,7 @@ get_event_details() {
                         # Check if we've seen this commit message before
                         if ! grep -qF "$commit_key|" "$SEEN_COMMITS_FILE" 2>/dev/null; then
                             echo "$commit_key|$commit_sha" >> "$SEEN_COMMITS_FILE"
-                            echo "    • $commit_message ($commit_sha)"
+                            echo "    • $commit_message ($commit_sha) - https://github.com/$repo/commit/$full_sha"
                         else
                             local prev_sha=$(grep -F "$commit_key|" "$SEEN_COMMITS_FILE" | head -1 | cut -d'|' -f2)
                             echo "    • [DUPLICATE] $commit_message ($commit_sha) - previously seen as ($prev_sha)"
@@ -113,13 +115,13 @@ get_event_details() {
             local commit_count=$(echo "$payload" | jq -r '.commits | length')
             if [[ "$commits_json" == "[]" && "$commit_count" -gt 0 ]]; then
                 echo "    (No commits matched author filter - showing all commits:)"
-                echo "$payload" | jq -r '.commits[] | (.message // "empty") + "|" + .sha[0:7] + "|" + (.author.name // "unknown")' 2>/dev/null | while IFS='|' read -r commit_message commit_sha commit_author; do
+                echo "$payload" | jq -r '.commits[] | (.message // "empty") + "|" + .sha[0:7] + "|" + (.author.name // "unknown") + "|" + .sha' 2>/dev/null | while IFS='|' read -r commit_message commit_sha commit_author full_sha; do
                     if [[ -n "$commit_message" && "$commit_message" != "empty" ]]; then
                         local commit_key=$(echo "$commit_message" | tr -d '\n\r' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9 ]/_/g')
 
                         if ! grep -qF "$commit_key|" "$SEEN_COMMITS_FILE" 2>/dev/null; then
                             echo "$commit_key|$commit_sha" >> "$SEEN_COMMITS_FILE"
-                            echo "    • $commit_message ($commit_sha) by $commit_author"
+                            echo "    • $commit_message ($commit_sha) by $commit_author - https://github.com/$repo/commit/$full_sha"
                         else
                             local prev_sha=$(grep -F "$commit_key|" "$SEEN_COMMITS_FILE" | head -1 | cut -d'|' -f2)
                             echo "    • [DUPLICATE] $commit_message ($commit_sha) by $commit_author - previously seen as ($prev_sha)"
@@ -131,24 +133,40 @@ get_event_details() {
         "PullRequestEvent")
             local pr_number=$(echo "$payload" | jq -r '.pull_request.number // empty')
             local pr_action=$(echo "$payload" | jq -r '.action // empty')
-            if [[ -n "$pr_number" && "$pr_action" == "opened" ]]; then
-                local pr_details=$(github_cli api "/repos/$repo/pulls/$pr_number" 2>/dev/null || echo '{}')
-                echo "$pr_details" | jq -r '
-                    "  Title: " + (.title // "No title") + "\n" +
-                    "  Description: " + ((.body // "No description") | .[0:200]) +
-                    (if (.body // "" | length) > 200 then "..." else "" end)
-                ' 2>/dev/null
-            elif [[ "$pr_action" != "opened" ]]; then
-                echo "  Action: $pr_action"
+            if [[ -n "$pr_number" ]]; then
+                echo "  PR #$pr_number: https://github.com/$repo/pull/$pr_number"
+                if [[ "$pr_action" == "opened" ]]; then
+                    local pr_details=$(github_cli api "/repos/$repo/pulls/$pr_number" 2>/dev/null || echo '{}')
+                    echo "$pr_details" | jq -r '
+                        "  Title: " + (.title // "No title") + "\n" +
+                        "  Description: " + ((.body // "No description") | .[0:200]) +
+                        (if (.body // "" | length) > 200 then "..." else "" end)
+                    ' 2>/dev/null
+                else
+                    echo "  Action: $pr_action"
+                fi
             fi
             ;;
         "IssueCommentEvent")
+            local issue_number=$(echo "$payload" | jq -r '.issue.number // empty')
+            local is_pull_request=$(echo "$payload" | jq -r '.issue.pull_request != null')
+            if [[ -n "$issue_number" ]]; then
+                if [[ "$is_pull_request" == "true" ]]; then
+                    echo "  PR #$issue_number Comment: https://github.com/$repo/pull/$issue_number"
+                else
+                    echo "  Issue #$issue_number Comment: https://github.com/$repo/issues/$issue_number"
+                fi
+            fi
             echo "$payload" | jq -r '
                 "  Comment: " + ((.comment.body // "No comment") | .[0:150]) +
                 (if (.comment.body // "" | length) > 150 then "..." else "" end)
             ' 2>/dev/null
             ;;
         "PullRequestReviewEvent")
+            local pr_number=$(echo "$payload" | jq -r '.pull_request.number // empty')
+            if [[ -n "$pr_number" ]]; then
+                echo "  PR #$pr_number: https://github.com/$repo/pull/$pr_number"
+            fi
             echo "$payload" | jq -r '
                 "  Review: " + (.review.state // "No state") +
                 (if .review.body and .review.body != "" then
@@ -168,6 +186,12 @@ get_event_details() {
                 "  Deleted: " + (.ref_type // "unknown") +
                 (if .ref then " \"" + .ref + "\"" else "" end)
             ' 2>/dev/null
+            ;;
+        "PullRequestReviewCommentEvent")
+            local pr_number=$(echo "$payload" | jq -r '.pull_request.number // empty')
+            if [[ -n "$pr_number" ]]; then
+                echo "  PR #$pr_number Review Comment: https://github.com/$repo/pull/$pr_number"
+            fi
             ;;
     esac
 }
