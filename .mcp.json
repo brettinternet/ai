@@ -18,6 +18,10 @@
         "--from",
         "git+https://github.com/oraios/serena",
         "serena-mcp-server",
+        "--enable-web-dashboard",
+        "false",
+        "--enable-gui-log-window",
+        "false",
         "--context",
         "ide-assistant"
       ]
