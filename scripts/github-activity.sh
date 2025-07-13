@@ -103,9 +103,6 @@ get_event_details() {
                         if ! grep -qF "$commit_key|" "$SEEN_COMMITS_FILE" 2>/dev/null; then
                             echo "$commit_key|$commit_sha" >> "$SEEN_COMMITS_FILE"
                             echo "    • $commit_message ($commit_sha) - https://github.com/$repo/commit/$full_sha"
-                        else
-                            local prev_sha=$(grep -F "$commit_key|" "$SEEN_COMMITS_FILE" | head -1 | cut -d'|' -f2)
-                            echo "    • [DUPLICATE] $commit_message ($commit_sha) - previously seen as ($prev_sha)"
                         fi
                     fi
                 done
@@ -122,9 +119,6 @@ get_event_details() {
                         if ! grep -qF "$commit_key|" "$SEEN_COMMITS_FILE" 2>/dev/null; then
                             echo "$commit_key|$commit_sha" >> "$SEEN_COMMITS_FILE"
                             echo "    • $commit_message ($commit_sha) by $commit_author - https://github.com/$repo/commit/$full_sha"
-                        else
-                            local prev_sha=$(grep -F "$commit_key|" "$SEEN_COMMITS_FILE" | head -1 | cut -d'|' -f2)
-                            echo "    • [DUPLICATE] $commit_message ($commit_sha) by $commit_author - previously seen as ($prev_sha)"
                         fi
                     fi
                 done
