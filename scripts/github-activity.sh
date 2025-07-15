@@ -50,6 +50,8 @@ get_target_date() {
                 date -d "last saturday" +%Y-%m-%d 2>/dev/null || date -v-saturday +%Y-%m-%d ;;
             sunday|sun)
                 date -d "last sunday" +%Y-%m-%d 2>/dev/null || date -v-sunday +%Y-%m-%d ;;
+            yesterday)
+                date -d "yesterday" +%Y-%m-%d 2>/dev/null || date -v-1d +%Y-%m-%d ;;
             *)
                 date -d "$day" +%Y-%m-%d 2>/dev/null || date -j -f "%Y-%m-%d" "$day" +%Y-%m-%d ;;
         esac
