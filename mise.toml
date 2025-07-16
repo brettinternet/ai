@@ -12,8 +12,5 @@ uv = "latest"
 [settings]
 disable_backends = ["asdf", "pipx"]
 pipx.uvx = true
+python.uv_venv_auto = true
 npm.bun = true
-experimental = true
-
-[hooks]
-enter = "mise i -q"

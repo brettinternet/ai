@@ -4,9 +4,15 @@
       "command": "bunx",
       "args": ["@upstash/context7-mcp"]
     },
-    "sequentialthinking": {
-      "command": "bunx",
-      "args": ["@modelcontextprotocol/server-sequential-thinking"]
+"sequential-thinking": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/arben-adm/mcp-sequential-thinking",
+        "--with",
+        "portalocker",
+        "mcp-sequential-thinking"
+      ]
     },
     "playwright": {
       "command": "bunx",
