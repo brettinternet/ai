@@ -1,8 +1,13 @@
+# MCP
+
+https://docs.anthropic.com/en/docs/claude-code/mcp
+
+```jsonc
 {
   "mcpServers": {
-    "graphiti": {
+    "graphiti": { // use instead of basic-memory
       "type": "sse",
-      "url": "http://localhost:62240/sse"
+      "url": "http://localhost:8000/sse"
     },
     "basic-memory": {
       "command": "uvx",
@@ -57,3 +62,4 @@
     }
   }
 }
+```

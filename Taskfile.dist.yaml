@@ -69,3 +69,9 @@ tasks:
     desc: Run ccusage tool
     aliases: [cc]
     cmd: ccusage {{.CLI_ARGS}}
+
+  compose:
+    desc: Run Docker Compose commands
+    aliases: [dc]
+    cmds:
+      - docker-compose {{.CLI_ARGS}}
