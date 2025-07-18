@@ -71,7 +71,7 @@ tasks:
     cmd: ccusage {{.CLI_ARGS}}
 
   compose:
-    desc: Run Docker Compose commands
+    desc: Run Docker Compose commands with environment variables
     aliases: [dc]
     cmds:
-      - docker-compose {{.CLI_ARGS}}
+      - docker-compose {{.CLI_ARGS | default "up -d"}}
