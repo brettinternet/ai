@@ -4,6 +4,8 @@ An incomprehensive collection of Claude AI and MCP tools configuration that can 
 
 ## Features
 
+This project is meant to model features that users could implement independently in their own project.
+
 -   **Claude AI Integration**: Claude Code configuration with permissions and hooks
 -   **MCP Server Collection**: Multiple MCP servers including:
     -   Context7 for library documentation
@@ -25,9 +27,25 @@ An incomprehensive collection of Claude AI and MCP tools configuration that can 
 
 ## Usage
 
+Setup project dependencies and generate `.env`
+
 ```sh
 task init
 ```
+
+Setup user MCPs
+
+```sh
+task mcp:setup-user
+```
+
+Run the Graphiti and Neo4j containers for local MCP server.
+
+```sh
+docker-compose up -d
+```
+
+Claude has access to tooling installed with `mise` since it inherits the user's shell. Verify this but running an executable in "bash mode" by prefixing the Claude input with `!`. What Claude calls "Bash" it actually means whatever shell you're running since `! echo $SHELL` outputs `/bin/zsh` in my environment.
 
 ### Prompts
 
@@ -59,7 +77,13 @@ The `.claude/settings.json` file contains:
 
 ### MCP Configuration
 
-The `.mcp.json` file defines:
+For user scoped MCPs, add the MCP configurations:
+
+```sh
+task mcp:setup-user
+```
+
+For project scoped MCPs, the `.mcp.json` file defines:
 
 -   **Context7**: Library documentation lookup
 -   **Sequential Thinking**: Complex reasoning capabilities
