@@ -2,6 +2,16 @@
 
 https://docs.anthropic.com/en/docs/claude-code/mcp
 
+## User
+
+```sh
+task mcp:setup-user
+```
+
+## Project
+
+`.mcp.json`
+
 ```jsonc
 {
   "mcpServers": {

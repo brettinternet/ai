@@ -3,6 +3,14 @@
 version: "3"
 
 tasks:
+  setup-user:
+    desc: Setup user MCPs
+    cmds:
+      - claude mcp add -s user --transport sse graphiti http://localhost:62240/sse
+      - claude mcp add -s user context7 -- bunx @upstash/context7-mcp
+      - claude mcp add -s user sequential-thinking -- uvx  --from git+https://github.com/arben-adm/mcp-sequential-thinking --with portalocker mcp-sequential-thinking
+      - claude mcp add -s user playwright -- bunx @playwright/mcp
+
   zen:
     desc: Zen MCP server with .env
     cmd: >-
