@@ -2,9 +2,6 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
-vars:
-  GH_EXEC: mise exec gh -- gh
-
 tasks:
   activity:
     desc: List recent github events for org from specified day (defaults to last workday)
@@ -21,4 +18,4 @@ tasks:
   username:
     desc: Get the current GitHub username
     cmd: >-
-      {{.GH_EXEC}} api user | jq -r '.login'
+      gh api user | jq -r '.login'

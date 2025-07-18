@@ -2,11 +2,6 @@
 
 set -euo pipefail
 
-github_cli() {
-  # Claude appears to not be able to access `gh` in its shell.
-  mise exec gh -- gh "$@"
-}
-
 # Function to derive GitHub org from repository list
 derive_github_org() {
     local repos="$1"
@@ -132,7 +127,7 @@ get_event_details() {
             if [[ -n "$pr_number" ]]; then
                 echo "  PR #$pr_number: https://github.com/$repo/pull/$pr_number"
                 if [[ "$pr_action" == "opened" ]]; then
-                    local pr_details=$(github_cli api "/repos/$repo/pulls/$pr_number" 2>/dev/null || echo '{}')
+                    local pr_details=$(gh api "/repos/$repo/pulls/$pr_number" 2>/dev/null || echo '{}')
                     echo "$pr_details" | jq -r '
                         "  Title: " + (.title // "No title") + "\n" +
                         "  Description: " + ((.body // "No description") | .[0:200]) +
@@ -203,7 +198,7 @@ get_repo_events() {
     local per_page=100
 
     while true; do
-        local events=$(github_cli api "/repos/$repo/events?page=$page&per_page=$per_page" 2>/dev/null || echo "[]")
+        local events=$(gh api "/repos/$repo/events?page=$page&per_page=$per_page" 2>/dev/null || echo "[]")
 
         # Check if response is valid JSON and is an array
         if ! echo "$events" | jq -e 'type == "array"' >/dev/null 2>&1; then
@@ -298,7 +293,7 @@ else
     fi
 
     # Get all repos in the org with pagination
-    github_cli api "/orgs/$GITHUB_ORG/repos" --paginate | jq -r '.[].full_name' | while read -r repo; do
+    gh api "/orgs/$GITHUB_ORG/repos" --paginate | jq -r '.[].full_name' | while read -r repo; do
         if [[ -n "$repo" ]]; then
             get_repo_events "$repo" "$TARGET_DATE" "$USERNAME" "$TARGET_DATE_START" "$TARGET_DATE_END"
         fi
