@@ -106,12 +106,12 @@ The `Dockerfile.claude` provides:
 ### Adding New MCP Servers
 
 1. Add server configuration to `.mcp.json`
-1. Enable server in `.claude/settings.json`
+1. Enable server in `.claude/settings.json` or `.claude/settings.local.json`
 
 ### Custom Notifications
 
 1. Configure Pushover credentials in `.env`
-1. Customize hooks in `.claude/settings.json`
+1. Customize hooks in `.claude/settings.json` or `.claude/settings.local.json`
 1. Add new notification tasks in `.taskfiles/hooks.yaml`
 
 ### Tool Integration
