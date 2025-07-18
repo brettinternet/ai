@@ -45,7 +45,7 @@ Run the Graphiti and Neo4j containers for local MCP server.
 docker-compose up -d
 ```
 
-Claude has access to tooling installed with `mise` since it inherits the user's shell. Verify this but running an executable in "bash mode" by prefixing the Claude input with `!`. What Claude calls "Bash" it actually means whatever shell you're running since `! echo $SHELL` outputs `/bin/zsh` in my environment.
+Claude has access to tooling installed with `mise` since it inherits the user's shell. Run an executable in "bash mode" by prefixing the Claude input with `!`, which represents the available shell Claude has when running tools. What Claude calls "Bash" it actually means whatever shell you're running since `! echo $SHELL` outputs `/bin/zsh` in my environment.
 
 ### Prompts
 
