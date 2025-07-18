@@ -8,12 +8,6 @@ This project is meant to model features that users could implement independently
 
 -   **Claude AI Integration**: Claude Code configuration with permissions and hooks
 -   **MCP Server Collection**: Multiple MCP servers including:
-    -   Context7 for library documentation
-    -   Sequential thinking for complex reasoning
-    -   Playwright for browser automation
-    -   Git integration for version control
-    -   Filesystem operations
-    -   Web fetch capabilities
 -   **Docker Support**: Containerized Claude environment with proper user management
 -   **Task Automation**: Taskfile-based automation for common operations
 -   **Notification System**: Pushover integration for task completion notifications
@@ -85,6 +79,8 @@ task mcp:setup-user
 
 For project scoped MCPs, the `.mcp.json` file defines:
 
+-   **Graphiti**: Knowledge graph for memory context
+-   **basic-memory**: Context memory between sessions
 -   **Context7**: Library documentation lookup
 -   **Sequential Thinking**: Complex reasoning capabilities
 -   **Playwright**: Browser automation
