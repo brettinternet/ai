@@ -36,9 +36,10 @@ When the user asks for their standup summary, summary of yesterday's work, or wh
 
 The summary should be:
 
-- **Brief and accessible**: 3-5 bullet points maximum
+- **Brief and accessible**: 2-5 bullet points maximum
 - **Focus on outcomes**: What was accomplished, not technical details
 - **Standup-friendly**: Easy to recite in a team meeting
+- **Consolidate**: Combine related actions such as a commit, push and PR for the same related work
 - **Action-oriented**: Use active language describing completed work
 - **Specific and linked**: Include specific PR numbers, commit references, and GitHub links for easy access
 - **Avoid vague statements**: Replace generic phrases like "reviewed multiple PRs" with specific PR numbers and links
