@@ -32,7 +32,7 @@ GITHUB_ORG=org task github:activity                        # all repos
 ```
 
 **Standup Summary Instructions:**
-When the user asks for their standup summary, summary of yesterday's work, or what they accomplished, automatically run the GitHub activity script `task github:myactivity` and provide a concise summary formatted for standup meetings. To get a summary for another user, find the user on GitHub and put the username as an argument to `task github:activity -- `.
+When the user asks for their standup summary, summary of yesterday's work, or what they accomplished, automatically run the GitHub activity script `task github:myactivity` and provide a concise summary formatted for standup meetings. To get a summary for another user, find the user on GitHub and put the username as an argument to `task github:activity -- `. Avoid using the script `scripts/github-activity.sh` directly.
 
 The summary should be:
 
