@@ -1,6 +1,6 @@
-# AI Tools Collection
+# AI Tooling & Research
 
-An incomprehensive collection of Claude AI and MCP tools configuration that can be used as a reference for other projects. This repository demonstrates how to set up an AI development environment with various tools and integrations.
+An incomprehensive collection of AI configuration, tooling MCP servers, and research that can be used as a reference for other projects. This repository demonstrates how to set up an AI development environment and testing with various tools and integrations.
 
 ## Features
 
