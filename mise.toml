@@ -1,5 +1,9 @@
+[env]
+_.python.venv = { path = ".venv", create = true }
+
 [tools]
 bun = "latest"
+black = "latest"
 gh = "latest"
 jq = "latest"
 node = "lts"
