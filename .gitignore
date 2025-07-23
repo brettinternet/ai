@@ -2,8 +2,13 @@
 .claude.json
 CLAUDE.local.md
 .task
-Taskfile.y?ml
+/Taskfile.yaml
+/Taskfile.yml
 .env
 mise.local.toml
 /tmp
 docker/data
+.venv
+__pycache__
+*.log
+.DS_Store
