@@ -10,6 +10,7 @@ env:
 
 includes:
   setup: .taskfiles/setup.yaml
+  python: .taskfiles/python.yaml
   hooks: .taskfiles/hooks.yaml
   notify: .taskfiles/notify.yaml
   mcp: .taskfiles/mcp.yaml

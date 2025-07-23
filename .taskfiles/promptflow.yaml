@@ -3,11 +3,6 @@
 version: "3"
 
 tasks:
-  format:
-    desc: Format project
-    cmds:
-      - black .
-
   weather:
     desc: Fetch current weather information
     dir: ./weather

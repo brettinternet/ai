@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+  format:
+    desc: Format project
+    cmds:
+      - black
+
+  check:
+    desc: Check project
+    cmds:
+      - ruff check
