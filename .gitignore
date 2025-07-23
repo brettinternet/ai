@@ -8,7 +8,11 @@ CLAUDE.local.md
 mise.local.toml
 /tmp
 docker/data
+.DS_Store
+*.log
+
+# python
 .venv
 __pycache__
-*.log
-.DS_Store
+.ruff_cache
+.pytest_cache
