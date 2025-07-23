@@ -1,4 +1,6 @@
-# Hooks
+# Claude
+
+## Hooks
 
 While I've had issues in the past with commands installed in a local repo with `mise`, this appears to be fixed recently and does require a hook such as this:
 
