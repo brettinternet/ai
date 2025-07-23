@@ -14,8 +14,11 @@ services:
     <<: *options
     image: ghcr.io/promptfoo/promptfoo:latest
     container_name: promptfoo
+    environment:
+      <<: *environment
+      PROMPTFOO_SELF_HOSTED: true
     volumes:
-      - "./docker/data/promptfoo:/home/promptfoo/.promptfoo"
+      - ./docker/data/promptfoo:/home/promptfoo/.promptfoo
     ports:
       - 62243:3000
 
@@ -31,7 +34,7 @@ services:
       NEO4J_server_memory_heap_max__size: 1G
       NEO4J_server_memory_pagecache_size: 512m
     volumes:
-      - "./docker/data/neo4j:/data"
+      - ./docker/data/neo4j:/data
     healthcheck:
       test: ["CMD", "wget", "-O", "/dev/null", "http://localhost:7474"]
       interval: 10s
