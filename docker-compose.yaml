@@ -14,6 +14,7 @@ services:
     <<: *options
     image: neo4j:5.26.0
     container_name: neo4j
+    profiles: [mcp]
     environment:
       <<: *environment
       NEO4J_AUTH: ${NEO4J_USER:-neo4j}/${NEO4J_PASSWORD:-adminadmin}
@@ -37,6 +38,7 @@ services:
     <<: *options
     image: zepai/knowledge-graph-mcp:latest
     container_name: graphiti
+    profiles: [mcp]
     depends_on: [neo4j]
     command: ["uv", "run", "graphiti_mcp_server.py", "--transport", "sse"]
     environment:
@@ -54,6 +56,7 @@ services:
     <<: *options
     image: ghcr.io/promptfoo/promptfoo:latest
     container_name: promptfoo
+    profiles: [prompt]
     environment:
       <<: *environment
       PROMPTFOO_SELF_HOSTED: true
