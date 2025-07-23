@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+  format:
+    desc: Format project
+    cmds:
+      - black .
+
+  weather:
+    desc: Fetch current weather information
+    dir: ./weather
+    cmds:
+      - pf run create --flow flow:chat --data ./data.jsonl --column-mapping question='${data.question}' --stream

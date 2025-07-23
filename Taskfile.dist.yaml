@@ -4,11 +4,7 @@ version: "3"
 
 dotenv: [.env]
 
-vars:
-  MCP_SEQUENTIAL_THINKING: "{{.ROOT_DIR}}/mcp-sequential-thinking"
-
 env:
-  ROOT_DIR: "{{.ROOT_DIR}}"
   PYTHONDONTWRITEBYTECODE: "1"
   VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
 
@@ -18,6 +14,9 @@ includes:
   notify: .taskfiles/notify.yaml
   mcp: .taskfiles/mcp.yaml
   github: .taskfiles/github.yaml
+  promptflow:
+    dir: promptflow
+    taskfile: .taskfiles/promptflow.yaml
 
 tasks:
   default:

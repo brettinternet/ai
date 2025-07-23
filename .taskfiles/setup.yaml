@@ -8,6 +8,8 @@ tasks:
     cmds:
       - task: mise
       - task: create-env-file
+      - task: direnv
+      - task: python
 
   mise:
     desc: Install workstation dependencies
@@ -24,3 +26,20 @@ tasks:
       - cp example.env .env
     status:
       - test -f .env
+
+  python:
+    desc: Install Python dependencies
+    cmd: uv pip install -r requirements.txt
+    preconditions:
+      - sh: command -v uv
+        msg: UV is not installed
+
+  direnv:
+    desc: Run direnv hooks
+    cmd: direnv allow .
+    status:
+      - "[[ $(direnv status --json | jq '.state.foundRC.allowed') == 0 ]]"
+      - "[[ $(direnv status --json | jq '.state.loadedRC.allowed') == 0 ]]"
+    preconditions:
+      - command -v direnv
+      - test -f .envrc

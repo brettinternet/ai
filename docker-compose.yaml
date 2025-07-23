@@ -10,18 +10,6 @@ x-options: &options
       condition: unless-stopped
 
 services:
-  promptfoo:
-    <<: *options
-    image: ghcr.io/promptfoo/promptfoo:latest
-    container_name: promptfoo
-    environment:
-      <<: *environment
-      PROMPTFOO_SELF_HOSTED: true
-    volumes:
-      - ./docker/data/promptfoo:/home/promptfoo/.promptfoo
-    ports:
-      - 62243:3000
-
   neo4j:
     <<: *options
     image: neo4j:5.26.0
@@ -61,3 +49,15 @@ services:
       GRAPHITI_TELEMETRY_ENABLED: false
     ports:
       - 62240:8000
+
+  promptfoo:
+    <<: *options
+    image: ghcr.io/promptfoo/promptfoo:latest
+    container_name: promptfoo
+    environment:
+      <<: *environment
+      PROMPTFOO_SELF_HOSTED: true
+    volumes:
+      - ./docker/data/promptfoo:/home/promptfoo/.promptfoo
+    ports:
+      - 62243:3000

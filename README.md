@@ -36,6 +36,16 @@ task mcp:setup-user
 Run the Graphiti and Neo4j containers for local MCP server.
 
 ```sh
+docker-compose up -d graphiti neo4j
+```
+
+Run all servers.
+
+- [neo4j](https://github.com/neo4j/neo4j) graph database
+- [graphiti](https://github.com/getzep/graphiti) knowledge graph MCP
+- [promptfoo](https://github.com/promptfoo/promptfoo) prompt tester and security testing
+
+```sh
 docker-compose up -d
 ```
 
