@@ -23,3 +23,6 @@ indent_size = 4
 
 [*.y?ml]
 indent_size = 2
+
+[*.py]
+indent_size = 4
