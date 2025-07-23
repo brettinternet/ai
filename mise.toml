@@ -4,6 +4,7 @@ _.python.venv = { path = ".venv", create = true }
 [tools]
 bun = "latest"
 black = "latest"
+ruff = "latest"
 gh = "latest"
 jq = "latest"
 node = "lts"
