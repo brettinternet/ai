@@ -8,7 +8,7 @@ tasks:
     cmds:
       - claude mcp add -s user --transport sse graphiti http://localhost:62240/sse || true
       - claude mcp add -s user context7 -- bunx @upstash/context7-mcp || true
-      - claude mcp add -s user bunx @modelcontextprotocol/server-sequential-thinking || true
+      - claude mcp add -s user sequential-thinking -- bunx @modelcontextprotocol/server-sequential-thinking || true
       - claude mcp add -s user playwright -- bunx @playwright/mcp || true
       - claude mcp add -s user time -- uvx mcp-server-time || true
 
