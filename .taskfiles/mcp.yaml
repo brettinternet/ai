@@ -6,16 +6,16 @@ tasks:
   setup-user:
     desc: Setup user MCPs
     cmds:
-      - claude mcp add -s user --transport sse graphiti http://localhost:62240/sse
-      - claude mcp add -s user context7 -- bunx @upstash/context7-mcp
-      - claude mcp add -s user sequential-thinking -- uvx  --from git+https://github.com/arben-adm/mcp-sequential-thinking --with portalocker mcp-sequential-thinking
-      - claude mcp add -s user playwright -- bunx @playwright/mcp
-      - claude mcp add -s user time -- uvx mcp-server-time
+      - claude mcp add -s user --transport sse graphiti http://localhost:62240/sse || true
+      - claude mcp add -s user context7 -- bunx @upstash/context7-mcp || true
+      - claude mcp add -s user bunx @modelcontextprotocol/server-sequential-thinking || true
+      - claude mcp add -s user playwright -- bunx @playwright/mcp || true
+      - claude mcp add -s user time -- uvx mcp-server-time || true
 
   setup-user:linear:
     desc: Setup user Linear MCP
     cmds:
-      - claude mcp add -s user --transport sse linear https://mcp.linear.app/sse
+      - claude mcp add -s user --transport sse linear https://mcp.linear.app/sse || true
 
   zen:
     desc: Zen MCP server with .env
