@@ -6,7 +6,7 @@ tasks:
   format:
     desc: Format project
     cmds:
-      - black
+      - ruff format
 
   check:
     desc: Check project
