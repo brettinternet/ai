@@ -12,6 +12,11 @@ tasks:
       - claude mcp add -s user playwright -- bunx @playwright/mcp
       - claude mcp add -s user time -- uvx mcp-server-time
 
+  setup-user:linear:
+    desc: Setup user Linear MCP
+    cmds:
+      - claude mcp add -s user --transport sse linear https://mcp.linear.app/sse
+
   zen:
     desc: Zen MCP server with .env
     cmd: >-
