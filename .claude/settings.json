@@ -23,7 +23,8 @@
     "serena",
     "git",
     "filesystem",
-    "fetch"
+    "fetch",
+    "standup-server"
   ],
   "hooks": {
     "Notification": [
@@ -32,7 +33,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "task hooks:notification"
+            "command": "task hooks:Notification:sound"
           }
         ]
       }
@@ -43,7 +44,18 @@
         "hooks": [
           {
             "type": "command",
-            "command": "task hooks:stop"
+            "command": "task hooks:Stop:sound"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "task hooks:PreToolUse:log"
           }
         ]
       }

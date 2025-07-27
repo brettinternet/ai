@@ -6,16 +6,26 @@ includes:
   notify: ./notify.yaml
 
 tasks:
-  notification:
-    desc: Handle Claude notification hook
+  Notification:sound:
+    desc: Play notification sound
     cmds:
       - task: notify:sound
         vars:
           SOUND: Purr
 
-  stop:
-    desc: Handle Claude stop hook
+  Stop:sound:
+    desc: Play stop sound
     cmds:
       - task: notify:sound
         vars:
           SOUND: Blow
+
+  PreToolUse:log:
+    desc: Log Claude tool usage
+    cmds:
+      - |-
+        HOOK_DATA=$(cat);
+        NAME=$(echo "$HOOK_DATA" | jq -r '.tool_name // "unknown"' 2>/dev/null || echo "unknown");
+        CWD=$(echo "$HOOK_DATA" | jq -r '.cwd // "unknown"' 2>/dev/null || echo "unknown");
+        INPUT=$(echo "$HOOK_DATA" | jq -r '.tool_input | tostring // "unknown"' 2>/dev/null || echo "unknown");
+        echo "$(date -Iseconds) - [$CWD] PreToolUse: $NAME - Input: $INPUT" >> ./tmp/PreToolUse.log
