@@ -6,18 +6,18 @@ An incomprehensive collection of AI configuration, tooling MCP servers, and rese
 
 This project is meant to model features that users could implement independently in their own project.
 
--   **Claude AI Integration**: Claude Code configuration with permissions and hooks
--   **MCP Server Collection**: Multiple MCP servers including:
--   **Docker Support**: Containerized Claude environment with proper user management
--   **Task Automation**: Taskfile-based automation for common operations
--   **Notification System**: Pushover integration for task completion notifications
--   **Tool Management**: Mise for managing development tools and dependencies
+- **Claude AI Integration**: Claude Code configuration with permissions, hooks, slash commands, etc
+- **MCP Server Collection**: Multiple MCP servers including:
+- **Docker Support**: Containerized Claude environment with proper user management
+- **Task Automation**: Taskfile-based automation for common operations
+- **Notification System**: Pushover integration for task completion notifications
+- **Tool Management**: Mise for managing development tools and dependencies
+- **Documentation**: prompts, MCP servers, agent findings
 
 ## Prerequisites
 
--   [mise](https://mise.jdx.dev/) - tool management
--   [Task](https://taskfile.dev/) - commands
--   [Claude Code](https://claude.ai/code) - AI agent
+- [mise](https://mise.jdx.dev/) - tool management
+- [Task](https://taskfile.dev/) - task commands
 
 ## Usage
 
@@ -89,23 +89,23 @@ task mcp:setup-user
 
 For project scoped MCPs, the `.mcp.json` file defines:
 
--   **Graphiti**: Knowledge graph for memory context
--   **basic-memory**: Context memory between sessions
--   **Context7**: Library documentation lookup
--   **Sequential Thinking**: Complex reasoning capabilities
--   **Playwright**: Browser automation
--   **Git**: Version control integration
--   **Filesystem**: File operations
--   **Fetch**: Web content retrieval
+- **Graphiti**: Knowledge graph for memory context
+- **basic-memory**: Context memory between sessions
+- **Context7**: Library documentation lookup
+- **Sequential Thinking**: Complex reasoning capabilities
+- **Playwright**: Browser automation
+- **Git**: Version control integration
+- **Filesystem**: File operations
+- **Fetch**: Web content retrieval
 
 ## Docker Configuration
 
 The `Dockerfile.claude` provides:
 
--   Debian-based container
--   Claude user with sudo access
--   Pre-installed development tools and additional dependencies with `mise`
--   Volume mounting for configuration persistence
+- Debian-based container
+- Claude user with sudo access
+- Pre-installed development tools and additional dependencies with `mise`
+- Volume mounting for configuration persistence
 
 ## Customization
 
