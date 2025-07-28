@@ -17,7 +17,7 @@ tasks:
         vars:
           SOUND: Purr
     status:
-      # Check if iTerm is not the focused window
+      # Don't run if terminal app is the focused window
       - &iterm-not-focused >-
         osascript
         -e 'tell application "System Events" to get name of first application process whose frontmost is true'
