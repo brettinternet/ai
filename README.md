@@ -6,13 +6,13 @@ An incomprehensive collection of AI configuration, tooling MCP servers, and rese
 
 This project is meant to model features that users could implement independently in their own project.
 
-- **Claude AI Integration**: Claude Code configuration with permissions, hooks, slash commands, etc
-- **MCP Server Collection**: Multiple MCP servers including:
+- **Claude Configuration**: [settings](./claude), [hooks](.taskfiles/hooks.yaml), [slash commands](./.claude/commands), and [agents](./.claude/agents)
+- **MCP Server Collection**: [MCP servers](./.mcp.json)
 - **Docker Support**: Containerized Claude environment with proper user management
-- **Task Automation**: Taskfile-based automation for common operations
+- **Task Automation**: [Taskfile-based](./.taskfiles) automation for common operations
 - **Notification System**: Pushover integration for task completion notifications
-- **Tool Management**: Mise for managing development tools and dependencies
-- **Documentation**: prompts, MCP servers, agent findings
+- **Tool Management**: Mise for managing development [tools and dependencies](./mise.toml)
+- **Documentation**: [prompts](./docs/prompts.md), [MCP servers](./docs/mcp.md), [agent findings](./docs/claude.md)
 
 ## Prerequisites
 

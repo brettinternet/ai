@@ -40,7 +40,7 @@ RUN curl -fsSL https://claude.ai/install.sh | bash >/dev/null 2>&1
 USER root
 
 # Copy entrypoint script
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Set environment variables for mise and paths
