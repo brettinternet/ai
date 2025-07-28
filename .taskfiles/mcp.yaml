@@ -7,10 +7,20 @@ tasks:
     desc: Setup user MCPs
     cmds:
       - claude mcp add -s user --transport sse graphiti http://localhost:62240/sse || true
-      - claude mcp add -s user context7 -- bunx @upstash/context7-mcp || true
-      - claude mcp add -s user sequential-thinking -- bunx @modelcontextprotocol/server-sequential-thinking || true
-      - claude mcp add -s user playwright -- bunx @playwright/mcp || true
+      - claude mcp add -s user context7 -- bunx @upstash/context7-mcp@latest || true
+      - claude mcp add -s user sequential-thinking -- bunx @modelcontextprotocol/server-sequential-thinking@latest || true
+      - claude mcp add -s user playwright -- bunx @playwright/mcp@latest || true
       - claude mcp add -s user time -- uvx mcp-server-time || true
+
+  remove-user:
+    desc: Setup user MCPs
+    cmds:
+      - claude mcp remove -s user graphiti || true
+      - claude mcp remove -s user context7 || true
+      - claude mcp remove -s user sequential-thinking || true
+      - claude mcp remove -s user playwright || true
+      - claude mcp remove -s user time || true
+      - claude mcp remove -s user linear || true
 
   setup-user:linear:
     desc: Setup user Linear MCP
