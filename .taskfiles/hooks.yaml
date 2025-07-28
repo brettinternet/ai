@@ -2,6 +2,9 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
+vars:
+  TERMINAL_APP: iTerm2
+
 includes:
   notify: ./notify.yaml
 
@@ -9,9 +12,16 @@ tasks:
   Notification:sound:
     desc: Play notification sound
     cmds:
+      # Check if iTerm is not the focused window
       - task: notify:sound
         vars:
           SOUND: Purr
+    status:
+      # Check if iTerm is not the focused window
+      - &iterm-not-focused >-
+        osascript
+        -e 'tell application "System Events" to get name of first application process whose frontmost is true'
+        | grep -q "{{.TERMINAL_APP}}"
 
   Stop:sound:
     desc: Play stop sound
@@ -19,6 +29,8 @@ tasks:
       - task: notify:sound
         vars:
           SOUND: Blow
+    status:
+      - *iterm-not-focused
 
   PreToolUse:log:
     desc: Log Claude tool usage
