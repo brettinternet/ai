@@ -32,6 +32,13 @@ tasks:
     status:
       - *iterm-not-focused
 
+  SubagentStop:sound:
+    desc: Play subagent stop sound
+    cmds:
+      - task: notify:sound
+        vars:
+          SOUND: Frog
+
   PreToolUse:log:
     desc: Log Claude tool usage
     cmds:
