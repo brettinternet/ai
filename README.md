@@ -1,6 +1,6 @@
-# AI Tooling & Research
+# AI
 
-An incomprehensive collection of AI configuration, tooling MCP servers, and research that can be used as a reference for other projects. This repository demonstrates how to set up an AI development environment and testing with various tools and integrations. See also my [MCP servers](https://github.com/brettinternet/mcp).
+A collection of AI configuration, tooling MCP servers, and research and prompt testing that can be used as a reference for other projects. This repository demonstrates how to set up an AI development environment and testing with various tools and integrations. See also my [MCP servers](https://github.com/brettinternet/mcp).
 
 ## Features
 
@@ -9,10 +9,11 @@ This project is meant to model features that users could implement independently
 - **Claude Configuration**: [settings](./claude), [hooks](.taskfiles/hooks.yaml), [slash commands](./.claude/commands), and [agents](./.claude/agents)
 - **MCP Server Collection**: [MCP servers](./.mcp.json)
 - **Docker Support**: Containerized Claude environment with proper user management
-- **Task Automation**: [Taskfile-based](./.taskfiles) automation for common operations
+- **Task Automation**: [Taskfile](./.taskfiles)-based automation for common operations
 - **Notification System**: Pushover integration for task completion notifications
 - **Tool Management**: Mise for managing development [tools and dependencies](./mise.toml)
 - **Documentation**: [prompts](./docs/prompts.md), [MCP servers](./docs/mcp.md), [agent findings](./docs/claude.md)
+- **Prompt tests**: [Promptflow](./promptflow) tests
 
 ## Prerequisites
 
