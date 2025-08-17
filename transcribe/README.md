@@ -15,6 +15,7 @@ transcribe --model medium --energy_threshold 1000
 ```
 
 **Features:**
+
 - Real-time microphone input processing
 - Granular control over audio processing parameters
 - Custom phrase detection and timing logic
@@ -46,25 +47,27 @@ transcribe --default_microphone list  # Show available devices
 
 ## Model Comparison
 
-| Model | Speed | Accuracy | Use Case |
-|-------|-------|----------|----------|
-| tiny  | Fastest | Basic | Testing, low-resource |
-| base  | Fast | Good | General use |
-| small | Medium | Better | Balanced |
-| medium| Slower | High | Default recommendation |
-| large | Slowest | Best | High-accuracy needs |
+| Model  | Speed   | Accuracy | Use Case               |
+| ------ | ------- | -------- | ---------------------- |
+| tiny   | Fastest | Basic    | Testing, low-resource  |
+| base   | Fast    | Good     | General use            |
+| small  | Medium  | Better   | Balanced               |
+| medium | Slower  | High     | Default recommendation |
+| large  | Slowest | Best     | High-accuracy needs    |
 
 ## Task Commands
 
 This project uses [Taskfile](https://taskfile.dev) for automation. Available commands:
 
 ### Development Setup
+
 ```bash
 task dev          # Complete development setup (install + test)
 task install:dev  # Install with test dependencies
 ```
 
 ### Testing
+
 ```bash
 task test         # Run all tests with coverage
 task test:basic   # Run basic functionality tests (fastest)
@@ -74,6 +77,7 @@ task test:watch   # Run tests in watch mode
 ```
 
 ### Code Quality
+
 ```bash
 task lint         # Check code with ruff
 task lint:fix     # Fix linting issues automatically
@@ -84,6 +88,7 @@ task check        # Run all checks (lint, format, test, build)
 ```
 
 ### Running
+
 ```bash
 task run          # Run with default settings
 task run:tiny     # Run with tiny model (fastest)
@@ -93,6 +98,7 @@ task devices      # List available audio devices (Linux)
 ```
 
 ### Building
+
 ```bash
 task build        # Build package for distribution
 task clean        # Clean build artifacts and caches

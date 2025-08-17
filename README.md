@@ -76,9 +76,9 @@ task ai:docker
 
 The `.claude/settings.json` file contains:
 
--   **Permissions**: Controlled access to tools and commands
--   **MCP Servers**: Enabled server configurations
--   **Hooks**: Notification triggers for events
+- **Permissions**: Controlled access to tools and commands
+- **MCP Servers**: Enabled server configurations
+- **Hooks**: Notification triggers for events
 
 ### MCP Configuration
 

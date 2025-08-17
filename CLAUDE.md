@@ -32,7 +32,7 @@ GITHUB_ORG=org task github:activity                        # all repos
 ```
 
 **Standup Summary Instructions:**
-When the user asks for their standup summary, summary of yesterday's work, or what they accomplished, automatically run the GitHub activity script `task github:myactivity` and provide a concise summary formatted for standup meetings. To get a summary for another user, find the user on GitHub and put the username as an argument to `task github:activity -- `. Avoid using the script `scripts/github-activity.sh` directly.
+When the user asks for their standup summary, summary of yesterday's work, or what they accomplished, automatically run the GitHub activity script `task github:myactivity` and provide a concise summary formatted for standup meetings. To get a summary for another user, find the user on GitHub and put the username as an argument to `task github:activity --`. Avoid using the script `scripts/github-activity.sh` directly.
 
 The summary should be:
 
@@ -45,6 +45,7 @@ The summary should be:
 - **Avoid vague statements**: Replace generic phrases like "reviewed multiple PRs" with specific PR numbers and links
 
 Format example:
+
 - Enhanced device simulation with function generation feature in [PR #1234](https://github.com/org/repo/pull/1234)
 - Improved development environment configuration with [commit abc1234](https://github.com/org/repo/commit/abc1234567890)
 - Reviewed and approved [PR #5678](https://github.com/org/repo/pull/5678) for authentication improvements
@@ -72,6 +73,7 @@ task docker:run            # Run Claude container
 ### Task Automation System
 
 The project uses Taskfile with modular organization:
+
 - `Taskfile.dist.yaml` - Main task definitions and Docker commands
 - `.taskfiles/setup.yaml` - Environment setup and mise installation
 - `.taskfiles/scripts.yaml` - GitHub activity analysis scripts
@@ -81,6 +83,7 @@ The project uses Taskfile with modular organization:
 ### MCP Server Configuration
 
 Located in `.mcp.json`, provides access to:
+
 - **Context7**: Library documentation lookup via `@upstash/context7-mcp`
 - **Sequential Thinking**: Complex reasoning via `@modelcontextprotocol/server-sequential-thinking`
 - **Playwright**: Browser automation via `@playwright/mcp`
@@ -92,6 +95,7 @@ Located in `.mcp.json`, provides access to:
 ### Claude Configuration
 
 Claude settings in `.claude/settings.json` define:
+
 - **Permissions**: Controlled access to bash commands, Docker, web fetching, and MCP servers
 - **Hooks**: Automated Pushover notifications and sound alerts on task completion/stop events
 - **Enabled Servers**: All MCP servers are enabled by default
@@ -99,6 +103,7 @@ Claude settings in `.claude/settings.json` define:
 ### Environment Configuration
 
 Environment variables in `.env` (copied from `example.env`):
+
 - `GITHUB_ORG`: GitHub organization for activity analysis
 - `PUSHOVER_TOKEN`: Pushover API token for notifications
 - `PUSHOVER_USER`: Pushover user key for notifications
@@ -106,6 +111,7 @@ Environment variables in `.env` (copied from `example.env`):
 ### Tool Management
 
 Uses `mise.toml` for development tool installation:
+
 - Node.js ecosystem (bun, node LTS)
 - GitHub CLI and JSON processing (gh, jq)
 - Task runner and AI tools (task, claude-code, ccusage)
@@ -114,6 +120,7 @@ Uses `mise.toml` for development tool installation:
 ### GitHub Activity Analysis
 
 The `scripts/github-activity.sh` script provides detailed GitHub event analysis:
+
 - Timezone-aware date filtering (handles UTC vs local time)
 - Commit message deduplication (identifies force pushes)
 - User-specific filtering with flexible author matching
@@ -123,6 +130,7 @@ The `scripts/github-activity.sh` script provides detailed GitHub event analysis:
 ### Docker Environment
 
 `Dockerfile.claude` creates a development container with:
+
 - Debian-based environment with Claude user
 - Volume mounting for configuration persistence
 - User ID mapping for file permission consistency

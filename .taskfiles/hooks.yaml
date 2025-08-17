@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
-version: "3"
+version: '3'
 
 vars:
   TERMINAL_APP: iTerm2
@@ -19,9 +19,9 @@ tasks:
     status:
       # Don't run if terminal app is the focused window
       - &iterm-not-focused >-
-        osascript
-        -e 'tell application "System Events" to get name of first application process whose frontmost is true'
-        | grep -q "{{.TERMINAL_APP}}"
+          osascript
+          -e 'tell application "System Events" to get name of first application process whose frontmost is true'
+          | grep -q "{{.TERMINAL_APP}}"
 
   Stop:sound:
     desc: Play stop sound
@@ -43,8 +43,8 @@ tasks:
     desc: Log Claude tool usage
     cmds:
       - |-
-        HOOK_DATA=$(cat);
-        NAME=$(echo "$HOOK_DATA" | jq -r '.tool_name // "unknown"' 2>/dev/null || echo "unknown");
-        CWD=$(echo "$HOOK_DATA" | jq -r '.cwd // "unknown"' 2>/dev/null || echo "unknown");
-        INPUT=$(echo "$HOOK_DATA" | jq -r '.tool_input | tostring // "unknown"' 2>/dev/null || echo "unknown");
-        echo "$(date -Iseconds) - [$CWD] PreToolUse: $NAME - Input: $INPUT" >> ./tmp/PreToolUse.log
+          HOOK_DATA=$(cat);
+          NAME=$(echo "$HOOK_DATA" | jq -r '.tool_name // "unknown"' 2>/dev/null || echo "unknown");
+          CWD=$(echo "$HOOK_DATA" | jq -r '.cwd // "unknown"' 2>/dev/null || echo "unknown");
+          INPUT=$(echo "$HOOK_DATA" | jq -r '.tool_input | tostring // "unknown"' 2>/dev/null || echo "unknown");
+          echo "$(date -Iseconds) - [$CWD] PreToolUse: $NAME - Input: $INPUT" >> ./tmp/PreToolUse.log

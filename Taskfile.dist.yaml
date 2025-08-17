@@ -49,6 +49,27 @@ tasks:
       - task: docker:build
       - task: docker:run
 
+  check:
+    desc: Run code checks
+    deps:
+      - task: python:check
+      - task: transcribe:check
+    cmds:
+      - dprint check
+
+  fix:
+    desc: Run code fixes
+    deps:
+      - task: python:fix
+      - task: transcribe:fix
+    cmds:
+      - dprint fmt
+
+  test:
+    desc: Run tests
+    deps:
+      - task: transcribe:test
+
   docker:build:
     desc: Build Docker image for AI agent
     aliases: [claude:docker:build]

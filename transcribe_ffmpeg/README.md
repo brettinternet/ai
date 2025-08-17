@@ -19,7 +19,7 @@ uv pip install -e .
    ```bash
    # macOS with Homebrew
    brew install ffmpeg
-   
+
    # Linux (compile from source or use recent packages)
    # Windows (download from ffmpeg.org)
    ```
@@ -29,7 +29,7 @@ uv pip install -e .
    # Create models directory
    mkdir -p ~/.whisper/models
    cd ~/.whisper/models
-   
+
    # Download desired models (examples)
    wget https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.en.bin
    wget https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium.en.bin
@@ -38,11 +38,13 @@ uv pip install -e .
 ## Usage
 
 ### Basic Usage
+
 ```bash
 transcribe-ffmpeg
 ```
 
 ### With Options
+
 ```bash
 # List available audio devices
 transcribe-ffmpeg --device list
@@ -58,8 +60,9 @@ transcribe-ffmpeg --model-path /path/to/ggml-large-v3.bin
 ```
 
 ### Available Models
+
 - `tiny`, `tiny.en` - Fastest, least accurate
-- `base`, `base.en` - Good balance of speed and accuracy  
+- `base`, `base.en` - Good balance of speed and accuracy
 - `small`, `small.en` - Better accuracy
 - `medium`, `medium.en` - High accuracy (default)
 - `large`, `large-v1`, `large-v2`, `large-v3` - Best accuracy, slower
@@ -78,12 +81,14 @@ transcribe-ffmpeg --model-path /path/to/ggml-large-v3.bin
 This project uses [Taskfile](https://taskfile.dev) for automation. Available commands:
 
 ### Development Setup
+
 ```bash
 task dev          # Complete development setup (install + FFmpeg check)
-task install:dev  # Install with test dependencies  
+task install:dev  # Install with test dependencies
 ```
 
 ### Testing
+
 ```bash
 task test         # Run all tests with coverage
 task test:basic   # Run basic functionality tests (fastest)
@@ -92,6 +97,7 @@ task test:watch   # Run tests in watch mode
 ```
 
 ### Code Quality
+
 ```bash
 task lint         # Check code with ruff
 task lint:fix     # Fix linting issues automatically
@@ -102,6 +108,7 @@ task check        # Run all checks (lint, format, test, build)
 ```
 
 ### Running
+
 ```bash
 task run          # Run with default settings
 task run:tiny     # Run with tiny model (fastest)
@@ -113,17 +120,20 @@ task devices      # List available audio devices
 ```
 
 ### Model Management
+
 ```bash
 task models:setup # Download common Whisper models
 task models:list  # List downloaded models
 ```
 
 ### System Checks
+
 ```bash
 task ffmpeg:check # Check FFmpeg version and Whisper support
 ```
 
 ### Building
+
 ```bash
 task build        # Build package for distribution
 task clean        # Clean build artifacts and caches

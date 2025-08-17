@@ -3,10 +3,14 @@ _.python.venv = { path = ".venv", create = true }
 
 [tools]
 bun = "latest"
-ruff = "latest"
+dotenv = "latest"
+dprint = "latest"
+gitleaks = "latest"
 gh = "latest"
 jq = "latest"
+lefthook = "latest"
 node = "lts"
+ruff = "latest"
 task = "latest"
 uv = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"

@@ -4,7 +4,7 @@ x-options: &options
   networks: [default]
   env_file: .env
   environment: &environment
-    TZ: "${TIMEZONE:-America/Denver}"
+    TZ: '${TIMEZONE:-America/Denver}'
   deploy: &deploy
     restart_policy:
       condition: unless-stopped
@@ -25,7 +25,7 @@ services:
     volumes:
       - ./docker/data/neo4j:/data
     healthcheck:
-      test: ["CMD", "wget", "-O", "/dev/null", "http://localhost:7474"]
+      test: ['CMD', 'wget', '-O', '/dev/null', 'http://localhost:7474']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -40,7 +40,7 @@ services:
     container_name: graphiti
     profiles: [mcp]
     depends_on: [neo4j]
-    command: ["uv", "run", "graphiti_mcp_server.py", "--transport", "sse"]
+    command: ['uv', 'run', 'graphiti_mcp_server.py', '--transport', 'sse']
     environment:
       <<: *environment
       NEO4J_URI: bolt://neo4j:7687
