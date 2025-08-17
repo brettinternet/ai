@@ -1,12 +1,12 @@
 ---
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
-version: "3"
+version: '3'
 
 dotenv: [.env]
 
 env:
-  PYTHONDONTWRITEBYTECODE: "1"
-  VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
+  PYTHONDONTWRITEBYTECODE: '1'
+  VIRTUAL_ENV: '{{.ROOT_DIR}}/.venv'
 
 includes:
   setup: .taskfiles/setup.yaml
