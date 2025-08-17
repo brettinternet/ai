@@ -1,0 +1,157 @@
+version: '3'
+
+vars:
+  PKG_NAME: transcribe-ffmpeg
+
+tasks:
+  install:
+    desc: "Install package in development mode"
+    cmds:
+      - uv pip install -e .
+
+  install:dev:
+    desc: "Install package with test dependencies"
+    cmds:
+      - uv pip install -e ".[test]"
+
+  test:
+    desc: "Run all tests with coverage"
+    cmds:
+      - pytest tests/ --cov=src --cov-report=html --cov-report=term-missing -v
+
+  test:unit:
+    desc: "Run only unit tests (fast)"
+    cmds:
+      - pytest tests/test_transcribe.py -v
+
+  test:basic:
+    desc: "Run basic functionality tests (fastest)"
+    cmds:
+      - pytest tests/test_basic.py -v
+
+  test:watch:
+    desc: "Run tests in watch mode"
+    cmds:
+      - pytest tests/ --cov=src -f
+
+  lint:
+    desc: "Run code linting with ruff"
+    cmds:
+      - ruff check src/ tests/
+    silent: true
+
+  lint:fix:
+    desc: "Fix linting issues automatically"
+    cmds:
+      - ruff check --fix src/ tests/
+
+  format:
+    desc: "Format code with ruff"
+    cmds:
+      - ruff format src/ tests/
+
+  run:
+    desc: "Run FFmpeg transcriber with default settings"
+    cmds:
+      - transcribe-ffmpeg
+
+  run:tiny:
+    desc: "Run transcriber with tiny model (fastest)"
+    cmds:
+      - transcribe-ffmpeg --model tiny.en
+
+  run:base:
+    desc: "Run transcriber with base model (balanced)"
+    cmds:
+      - transcribe-ffmpeg --model base.en
+
+  run:medium:
+    desc: "Run transcriber with medium model (recommended)"
+    cmds:
+      - transcribe-ffmpeg --model medium.en
+
+  run:vad:
+    desc: "Run transcriber with Voice Activity Detection"
+    cmds:
+      - transcribe-ffmpeg --model base.en --vad
+
+  run:srt:
+    desc: "Run transcriber with SRT subtitle output"
+    cmds:
+      - transcribe-ffmpeg --format srt --output subtitles.srt
+
+  run:custom:
+    desc: "Run transcriber with custom parameters"
+    cmds:
+      - transcribe-ffmpeg {{.CLI_ARGS}}
+
+  devices:
+    desc: "List available audio devices"
+    cmds:
+      - transcribe-ffmpeg --device list
+
+  models:setup:
+    desc: "Download common Whisper models"
+    cmds:
+      - mkdir -p ~/.whisper/models
+      - echo "Downloading base.en model..."
+      - wget -P ~/.whisper/models https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.en.bin
+      - echo "Downloading medium.en model..."
+      - wget -P ~/.whisper/models https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium.en.bin
+
+  models:list:
+    desc: "List downloaded Whisper models"
+    cmds:
+      - ls -la ~/.whisper/models/
+
+  ffmpeg:check:
+    desc: "Check FFmpeg version and Whisper support"
+    cmds:
+      - ffmpeg -version | head -1
+      - ffmpeg -filters | grep whisper || echo "Whisper filter not found - requires FFmpeg 8+"
+
+  clean:
+    desc: "Clean up build artifacts and caches"
+    cmds:
+      - rm -rf build/
+      - rm -rf dist/
+      - rm -rf *.egg-info/
+      - rm -rf .pytest_cache/
+      - rm -rf htmlcov/
+      - find . -type d -name __pycache__ -exec rm -rf {} +
+      - find . -name "*.pyc" -delete
+      - rm -f transcription.txt
+      - rm -f *.srt
+
+  build:
+    desc: "Build package for distribution"
+    cmds:
+      - uv build
+
+  check:
+    desc: "Run all checks (lint, format check, test, build)"
+    cmds:
+      - task: lint
+      - task: format:check
+      - task: test:basic
+      - task: build
+
+  format:check:
+    desc: "Check code formatting without making changes"
+    cmds:
+      - ruff format --check src/ tests/
+
+  fix:
+    desc: "Fix all auto-fixable issues (lint + format)"
+    cmds:
+      - task: lint:fix
+      - task: format
+
+  dev:
+    desc: "Set up development environment"
+    cmds:
+      - task: install:dev
+      - task: ffmpeg:check
+      - echo "Development environment ready!"
+      - echo "Note ':' Requires FFmpeg 8+ with Whisper support"
+      - echo "Run 'task run' to start transcribing"

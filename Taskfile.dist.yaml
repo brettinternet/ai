@@ -18,6 +18,12 @@ includes:
   promptflow:
     dir: promptflow
     taskfile: .taskfiles/promptflow.yaml
+  transcribe:
+    dir: transcribe
+    taskfile: .taskfiles/transcribe.yaml
+  transcribe-ffmpeg:
+    dir: transcribe_ffmpeg
+    taskfile: .taskfiles/transcribe-ffmpeg.yaml
 
 tasks:
   default:
