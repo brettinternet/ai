@@ -14,6 +14,7 @@ This project is meant to model features that users could implement independently
 - **Tool Management**: Mise for managing development [tools and dependencies](./mise.toml)
 - **Documentation**: [prompts](./docs/prompts.md), [MCP servers](./docs/mcp.md), [agent findings](./docs/claude.md)
 - **Prompt tests**: [Promptflow](./promptflow) tests
+- **Real-time Whisper transcription**: [transcribe](./transcribe) and preparing to test ffmpeg v8's Whisper integration with [transcribe ffmpeg](./transcribe_ffmpeg/)
 
 ## Prerequisites
 
