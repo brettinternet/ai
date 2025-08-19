@@ -11,6 +11,7 @@ tasks:
       - claude mcp add -s user sequential-thinking -- bunx @modelcontextprotocol/server-sequential-thinking@latest || true
       - claude mcp add -s user playwright -- bunx @playwright/mcp@latest || true
       - claude mcp add -s user time -- uvx mcp-server-time || true
+      - claude mcp add -s user serena -- uvx --from git+https://github.com/oraios/serena serena-mcp-server --enable-web-dashboard false --enable-gui-log-window false --context ide-assistant || true
 
   remove-user:
     desc: Setup user MCPs
@@ -21,6 +22,7 @@ tasks:
       - claude mcp remove -s user playwright || true
       - claude mcp remove -s user time || true
       - claude mcp remove -s user linear || true
+      - claude mcp remove -s user serena || true
 
   setup-user:linear:
     desc: Setup user Linear MCP
