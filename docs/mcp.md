@@ -8,7 +8,11 @@ https://docs.anthropic.com/en/docs/claude-code/mcp
 task mcp:setup-user
 ```
 
-## Project
+## Usage
+
+- [basic-memory](https://github.com/basicmachines-co/basic-memory?tab=readme-ov-file#how-it-works-in-practice)
+
+### Example
 
 `.mcp.json`
 

@@ -7,7 +7,7 @@ tasks:
     desc: Setup user MCPs
     cmds:
       # - claude mcp add -s user --transport sse graphiti http://localhost:62240/sse || true
-      - claude mcp add -s user basic-memory -- uvx basic-memory mcp || true
+      # - claude mcp add -s user basic-memory -- uvx basic-memory mcp || true
       - claude mcp add -s user context7 -- bunx @upstash/context7-mcp@latest || true
       - claude mcp add -s user sequential-thinking -- bunx @modelcontextprotocol/server-sequential-thinking@latest || true
       - claude mcp add -s user playwright -- bunx @playwright/mcp@latest || true
