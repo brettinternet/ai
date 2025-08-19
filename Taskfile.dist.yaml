@@ -109,3 +109,9 @@ tasks:
     aliases: [dc]
     cmds:
       - docker-compose {{.CLI_ARGS | default "up -d"}}
+
+  remote:
+    desc: Open the remote GitHub repository in default browser
+    cmd: >
+      {{if eq OS "darwin"}}open{{else if eq OS "linux"}}xdg-open{{else if eq OS "windows"}}start{{else}}open{{end}}
+      $(git remote get-url origin | sed 's/\.git$//' | sed 's|git@github.com:|https://github.com/|')
