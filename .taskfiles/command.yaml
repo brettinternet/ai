@@ -1,9 +1,9 @@
 ---
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
-version: '3'
+version: "3"
 
 vars:
-  REPO_COMMANDS_DIR: '{{.ROOT_DIR}}/.claude/commands'
+  REPO_COMMANDS_DIR: "{{.ROOT_DIR}}/.claude/commands"
   USER_COMMANDS_DIR: $HOME/.claude/commands
 
 tasks:

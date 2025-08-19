@@ -1,11 +1,11 @@
 ---
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
-version: '3'
+version: "3"
 
 tasks:
   activity:
     desc: List recent github events for org from specified day (defaults to last workday)
-    cmd: '{{.ROOT_DIR}}/scripts/github-activity.sh {{.DAY}} {{.CLI_ARGS}}'
+    cmd: "{{.ROOT_DIR}}/scripts/github-activity.sh {{.DAY}} {{.CLI_ARGS}}"
 
   myactivity:
     desc: List recent github events for org from specified day (defaults to last workday)
@@ -13,7 +13,7 @@ tasks:
       CURRENT_USERNAME:
         sh: task github:username
       DAY: yesterday
-    cmd: '{{.ROOT_DIR}}/scripts/github-activity.sh {{.DAY}} {{.CURRENT_USERNAME}}'
+    cmd: "{{.ROOT_DIR}}/scripts/github-activity.sh {{.DAY}} {{.CURRENT_USERNAME}}"
 
   username:
     desc: Get the current GitHub username

@@ -15,7 +15,7 @@
   "markup": {
   },
   "yaml": {
-    "quotes": "preferSingle"
+    "quotes": "preferDouble"
   },
   "excludes": [],
   "plugins": [

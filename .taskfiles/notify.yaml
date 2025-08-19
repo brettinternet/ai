@@ -1,9 +1,9 @@
 ---
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
-version: '3'
+version: "3"
 
 vars:
-  PUSHOVER_SCRIPT: '{{.ROOT_DIR}}/scripts/pushover.sh'
+  PUSHOVER_SCRIPT: "{{.ROOT_DIR}}/scripts/pushover.sh"
 
 tasks:
   sound:
@@ -22,7 +22,7 @@ tasks:
     desc: Send a Pushover notification with a custom message
     requires:
       vars: [TITLE, MESSAGE]
-    cmd: '{{.PUSHOVER_SCRIPT}} {{.MESSAGE}} {{.TITLE}}'
+    cmd: "{{.PUSHOVER_SCRIPT}} {{.MESSAGE}} {{.TITLE}}"
 
   pushover:test:
     desc: Send a Pushover test notification
