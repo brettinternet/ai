@@ -14,6 +14,7 @@ includes:
   hooks: .taskfiles/hooks.yaml
   notify: .taskfiles/notify.yaml
   mcp: .taskfiles/mcp.yaml
+  command: .taskfiles/command.yaml
   github: .taskfiles/github.yaml
   promptflow:
     dir: promptflow
@@ -36,6 +37,12 @@ tasks:
     aliases: [setup]
     cmds:
       - task: setup:init
+
+  setup-user:
+    desc: Setup user commands
+    cmds:
+      - task: command:setup-user
+      - task: mcp:setup-user
 
   ai:
     desc: Start AI agent

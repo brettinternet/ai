@@ -13,4 +13,4 @@ Time to cook!
 1. After you finish the phase, pause and wait for user review or feedback.
 1. Auto-compact the context, then repeat with the next unfinished phase as directed by the user.
 
-If provided, the agent you'll use is:
+If provided, the agent you'll use is $ARGUMENTS

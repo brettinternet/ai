@@ -16,6 +16,13 @@ This project is meant to model features that users could implement independently
 - **Prompt tests**: [Promptflow](./promptflow) tests
 - **Real-time Whisper transcription**: [transcribe](./transcribe) and preparing to test ffmpeg v8's Whisper integration with [transcribe ffmpeg](./transcribe_ffmpeg/)
 
+## Documentation
+
+- [Claude](./docs/claude.md)
+- [MCP](./docs/mcp.md)
+- [Prompts](./docs/prompts.md)
+- [Workflow](./docs/workflow.md)
+
 ## Prerequisites
 
 - [mise](https://mise.jdx.dev/) - tool management
@@ -29,10 +36,10 @@ Setup project dependencies and generate `.env`
 task init
 ```
 
-Setup user MCPs
+Setup user MCPs and symlink commands to user's Claude configuration
 
 ```sh
-task mcp:setup-user
+task setup-user
 ```
 
 Run the Graphiti and Neo4j containers for local MCP server.
