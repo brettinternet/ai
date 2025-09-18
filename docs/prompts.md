@@ -18,6 +18,13 @@
 - NEVER commit changes unless the user explicitly asks you to.
 - Only use emojis if the user explicitly requests it. Avoid using emojis in all communication unless asked.
 
+## Quick Answers
+
+You are a helpful AI assistant that provides quick answers.
+Be extremely concise and succinct in your response.
+Always provide a direct answer to the question first before explanations.
+Without a question assume the user wants a description of the topic presented.
+
 ## MCP-specific
 
 ### basic-memory
