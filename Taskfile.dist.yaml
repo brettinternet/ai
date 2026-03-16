@@ -13,7 +13,7 @@ includes:
   hooks: .taskfiles/hooks.yaml
   notify: .taskfiles/notify.yaml
   mcp: .taskfiles/mcp.yaml
-  command: .taskfiles/command.yaml
+  commands: .taskfiles/commands.yaml
   github: .taskfiles/github.yaml
 
 tasks:
@@ -31,7 +31,7 @@ tasks:
   setup-user:
     desc: Setup user commands
     cmds:
-      - task: command:setup-user
+      - task: commands:setup-user
       - task: mcp:setup-user
 
   ai:
@@ -48,24 +48,16 @@ tasks:
 
   check:
     desc: Run code checks
-    deps:
-      - task: python:check
-      - task: transcribe:check
     cmds:
       - dprint check
 
   fix:
     desc: Run code fixes
-    deps:
-      - task: python:fix
-      - task: transcribe:fix
     cmds:
       - dprint fmt
 
   test:
     desc: Run tests
-    deps:
-      - task: transcribe:test
 
   docker:build:
     desc: Build Docker image for AI agent
