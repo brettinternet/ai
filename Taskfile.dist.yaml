@@ -10,15 +10,11 @@ env:
 
 includes:
   setup: .taskfiles/setup.yaml
-  python: .taskfiles/python.yaml
   hooks: .taskfiles/hooks.yaml
   notify: .taskfiles/notify.yaml
   mcp: .taskfiles/mcp.yaml
   command: .taskfiles/command.yaml
   github: .taskfiles/github.yaml
-  promptflow:
-    dir: promptflow
-    taskfile: .taskfiles/promptflow.yaml
 
 tasks:
   default:
