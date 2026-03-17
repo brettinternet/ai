@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+vars:
+  AGENTS_SRC: "{{.ROOT_DIR}}/.claude/agents"
+  AGENTS_DEST: "{{.HOME}}/.claude/agents"
+
+tasks:
+  setup-user:
+    desc: Add agents to user
+    cmds:
+      - task: update
+
+  update:
+    desc: Force update all Claude Code agents globally (~/.claude/agents/)
+    cmds:
+      - mkdir -p "{{.AGENTS_DEST}}"
+      - |
+        for agent in "{{.AGENTS_SRC}}"/*.md; do
+          name=$(basename "$agent")
+          cp "$agent" "{{.AGENTS_DEST}}/$name"
+          echo "Updated: $name"
+        done

@@ -15,6 +15,7 @@ includes:
   mcp: .taskfiles/mcp.yaml
   commands: .taskfiles/commands.yaml
   github: .taskfiles/github.yaml
+  agents: .taskfiles/agents.yaml
 
 tasks:
   default:
@@ -33,6 +34,7 @@ tasks:
     cmds:
       - task: commands:setup-user
       - task: mcp:setup-user
+      - task: agents:setup-user
 
   ai:
     desc: Start AI agent
