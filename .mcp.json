@@ -1,19 +1,11 @@
 {
   "mcpServers": {
-    "graphiti": {
-      "type": "sse",
-      "url": "http://localhost:62240/sse"
-    },
     "basic-memory": {
       "command": "uvx",
       "args": [
         "basic-memory",
         "mcp"
       ]
-    },
-    "context7": {
-      "command": "bunx",
-      "args": ["@upstash/context7-mcp"]
     },
     "sequential-thinking": {
       "command": "uvx",

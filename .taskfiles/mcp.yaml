@@ -6,13 +6,9 @@ tasks:
   setup-user:
     desc: Setup user MCPs
     cmds:
-      # - claude mcp add -s user --transport sse graphiti http://localhost:62240/sse || true
-      # - claude mcp add -s user basic-memory -- uvx basic-memory mcp || true
       - claude mcp add -s user context7 -- bunx @upstash/context7-mcp@latest || true
-      - claude mcp add -s user sequential-thinking -- bunx @modelcontextprotocol/server-sequential-thinking@latest || true
-      - claude mcp add -s user playwright -- bunx @playwright/mcp@latest || true
       - claude mcp add -s user time -- uvx mcp-server-time || true
-      - claude mcp add -s user serena -- uvx --from git+https://github.com/oraios/serena serena-mcp-server --enable-web-dashboard false --enable-gui-log-window false --context ide-assistant || true
+      - task: setup-user:chromium
 
   remove-user:
     desc: Setup user MCPs
@@ -22,9 +18,21 @@ tasks:
       - claude mcp remove -s user context7 || true
       - claude mcp remove -s user sequential-thinking || true
       - claude mcp remove -s user playwright || true
+      - claude mcp remove -s user chrome-devtools || true
       - claude mcp remove -s user time || true
       - claude mcp remove -s user linear || true
       - claude mcp remove -s user serena || true
+
+  setup-user:chromium:
+    desc: Setup Chromium MCP
+    cmds:
+      - |
+        CHROMIUM="/Applications/Chromium.app/Contents/MacOS/Chromium"
+        if [ -x "$CHROMIUM" ]; then
+          claude mcp add -s user chrome-devtools -- bunx chrome-devtools-mcp@latest --executable-path "$CHROMIUM" || true
+        else
+          claude mcp add -s user chrome-devtools -- bunx chrome-devtools-mcp@latest || true
+        fi
 
   setup-user:linear:
     desc: Setup user Linear MCP
