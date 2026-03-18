@@ -36,12 +36,7 @@ tasks:
       - task: mcp:setup-user
       - task: agents:setup-user
 
-  ai:
-    desc: Start AI agent
-    aliases: [claude]
-    cmd: claude
-
-  ai:docker:
+  claude:docker:
     desc: Start AI agent in Docker
     aliases: [claude:docker]
     cmds:
