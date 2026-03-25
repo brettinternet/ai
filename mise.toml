@@ -3,7 +3,8 @@ _.python.venv = { path = ".venv", create = true }
 
 [tools]
 bun = "latest"
-dotenv = "latest"
+claude = "latest"
+dotenvx = "latest"
 dprint = "latest"
 gitleaks = "latest"
 gh = "latest"
@@ -13,9 +14,6 @@ node = "lts"
 ruff = "latest"
 task = "latest"
 uv = "latest"
-"npm:@anthropic-ai/claude-code" = "latest"
-"npm:task-master-ai" = "latest"
-"npm:ccusage" = "latest"
 
 [settings]
 disable_backends = ["asdf", "pipx"]
