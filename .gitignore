@@ -1,13 +1,19 @@
 .claude/settings.local.json
 .claude.json
 CLAUDE.local.md
+AGENTS.local.md
+
 .task
 /Taskfile.yaml
 /Taskfile.yml
+
+.trees
+
 .env
 mise.local.toml
 /tmp
 docker/data
+
 .DS_Store
 *.log
 

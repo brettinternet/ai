@@ -1,19 +1,30 @@
 # Claude
 
-## Hooks
+## Context
 
-While I've had issues in the past with commands installed in a local repo with `mise`, this appears to be fixed recently and does require a hook such as this:
+Inject additional context from outside CLAUDE.md with:
 
-```json
-"PreToolUse": [
-  {
-    "matcher": "Edit|MultiEdit|Write",
-    "hooks": [
-      {
-        "type": "command",
-        "command": "eval \"$(mise activate zsh)\""
-      }
-    ]
-  }
-],
+```sh
+CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1 claude --add-dir /path/to/another-project
+```
+
+Or you can add this to `CLAUDE.md`:
+
+```md
+@~/.claude/my-project-instructions.md
+```
+
+Use rules specific to directories: https://code.claude.com/docs/en/memory#organize-rules-with-claude/rules/
+
+## Worktrees
+
+Add `.trees` to `.gitignore`.
+
+```bash
+wt-new() {
+  local branch=$1
+  git worktree add -b "$branch" ".trees/$branch" main
+  tmux new-window -n "$branch" -c "$(pwd)/.trees/$branch"
+  tmux send-keys "claude" Enter
+}
 ```
