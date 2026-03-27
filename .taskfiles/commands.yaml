@@ -19,4 +19,5 @@ tasks:
       USER_COMMANDS_DIR_EXPANDED:
         sh: realpath {{.USER_COMMANDS_DIR}}
     cmds:
+      - find {{.USER_COMMANDS_DIR_EXPANDED}} -maxdepth 1 -type l -lname "{{.REPO_COMMANDS_DIR}}/*" -delete
       - for file in {{.REPO_COMMANDS_DIR}}/*.md; do ln -sf "$file" {{.USER_COMMANDS_DIR_EXPANDED}}/; done
