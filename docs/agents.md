@@ -6,7 +6,7 @@ Tips: https://mitchellh.com/writing/my-ai-adoption-journey
 
 ### Use worktrees
 
-Here are my simple functions to create and clean up git worktrees: https://github.com/brettinternet/dotfiles/blob/719e59211d997757aedcdf9a0bfe569df2e7414c/darwin/.functions/shortcuts.sh#L29-L81
+Here are my simple functions to create and clean up git worktrees: https://github.com/brettinternet/dotfiles/blob/a43ba3d6c42acfd657dfaf2064d5820fb8757364/darwin/.functions/dev.sh#L24-L118
 
 ### Turn off notifications
 
