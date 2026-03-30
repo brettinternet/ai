@@ -31,3 +31,23 @@ tasks:
     desc: Uninstall all managed Claude Code plugins
     cmds:
       - claude plugin uninstall superpowers || true
+
+  enable:
+    desc: "Enable a plugin (PLUGIN=name) or all managed plugins if no arg given"
+    cmds:
+      - |
+        if [ -n "{{.PLUGIN}}" ]; then
+          claude plugin enable "{{.PLUGIN}}"
+        else
+          claude plugin enable superpowers
+        fi
+
+  disable:
+    desc: "Disable a plugin (PLUGIN=name) or all plugins if no arg given"
+    cmds:
+      - |
+        if [ -n "{{.PLUGIN}}" ]; then
+          claude plugin disable "{{.PLUGIN}}"
+        else
+          claude plugin disable --all
+        fi
