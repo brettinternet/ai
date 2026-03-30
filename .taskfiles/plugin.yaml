@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+  setup-user:
+    desc: Install Claude Code plugins for user
+    cmds:
+      - task: install
+        vars: { PLUGIN: "superpowers@claude-plugins-official" }
+
+  install:
+    desc: Install a plugin if not already installed
+    internal: true
+    requires:
+      vars: [PLUGIN]
+    vars:
+      PLUGIN_NAME:
+        sh: echo "{{.PLUGIN}}" | cut -d'@' -f1
+    status:
+      - claude plugin list | grep -q "{{.PLUGIN_NAME}}"
+    cmds:
+      - claude plugin install -s user {{.PLUGIN}}
+
+  update:
+    desc: Update all installed Claude Code plugins
+    cmds:
+      - claude plugin update superpowers
+
+  uninstall:
+    desc: Uninstall all managed Claude Code plugins
+    cmds:
+      - claude plugin uninstall superpowers || true

@@ -16,6 +16,7 @@ includes:
   commands: .taskfiles/commands.yaml
   github: .taskfiles/github.yaml
   agents: .taskfiles/agents.yaml
+  plugin: .taskfiles/plugin.yaml
 
 tasks:
   default:
@@ -35,6 +36,7 @@ tasks:
       - task: commands:setup-user
       - task: mcp:setup-user
       - task: agents:setup-user
+      - task: plugin:setup-user
 
   claude:docker:
     desc: Start AI agent in Docker
