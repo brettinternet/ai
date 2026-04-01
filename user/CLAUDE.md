@@ -16,4 +16,4 @@
 
 - Never run `git push` without explicit instruction.
 - Never open PRs without explicit instruction.
-- When committing, do not add Claude as a co-author. Omit any `Co-Authored-By` trailer.
+- When committing, do not add Claude as a co-author. Omit any `Co-Authored-By` trailer. Make commit messages as concise as possible.
