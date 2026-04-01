@@ -37,6 +37,12 @@ tasks:
       - task: mcp:setup-user
       - task: agents:setup-user
       - task: plugin:setup-user
+      - task: copy-user-claude-md
+
+  copy-user-claude-md:
+    desc: Copy user/CLAUDE.md to ~/.claude/CLAUDE.md
+    cmds:
+      - cp -f user/CLAUDE.md ~/.claude/CLAUDE.md
 
   claude:docker:
     desc: Start AI agent in Docker
