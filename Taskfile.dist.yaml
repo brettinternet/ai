@@ -29,6 +29,7 @@ tasks:
     aliases: [setup]
     cmds:
       - task: setup:init
+      - task: setup-user
 
   setup-user:
     desc: Setup user commands

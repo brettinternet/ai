@@ -36,22 +36,22 @@ tasks:
     desc: "Enable a plugin (PLUGIN=name, or -- name) or all managed plugins if no arg given"
     cmds:
       - |
-        if [ -n "{{.PLUGIN}}" ]; then
-          claude plugin enable "{{.PLUGIN}}"
-        elif [ -n "{{.CLI_ARGS}}" ]; then
-          claude plugin enable {{.CLI_ARGS}}
-        else
-          claude plugin enable superpowers
-        fi
+          if [ -n "{{.PLUGIN}}" ]; then
+            claude plugin enable "{{.PLUGIN}}"
+          elif [ -n "{{.CLI_ARGS}}" ]; then
+            claude plugin enable {{.CLI_ARGS}}
+          else
+            claude plugin enable superpowers
+          fi
 
   disable:
     desc: "Disable a plugin (PLUGIN=name, or -- name) or all plugins if no arg given"
     cmds:
       - |
-        if [ -n "{{.PLUGIN}}" ]; then
-          claude plugin disable "{{.PLUGIN}}"
-        elif [ -n "{{.CLI_ARGS}}" ]; then
-          claude plugin disable {{.CLI_ARGS}}
-        else
-          claude plugin disable --all
-        fi
+          if [ -n "{{.PLUGIN}}" ]; then
+            claude plugin disable "{{.PLUGIN}}"
+          elif [ -n "{{.CLI_ARGS}}" ]; then
+            claude plugin disable {{.CLI_ARGS}}
+          else
+            claude plugin disable --all
+          fi
