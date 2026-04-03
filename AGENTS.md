@@ -60,3 +60,4 @@ Put worktrees in @.trees if you decide to create one.
 - Don't run `git push` without explicit instruction
 - Don't open PRs without explicit instruction
 - Don't edit files outside the current task scope
+- Don't overuse code comments, especially when the comments don't explain some "gotcha" or nuance about the code
