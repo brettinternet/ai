@@ -1,5 +1,9 @@
 # Claude
 
+## Auth
+
+- https://code.claude.com/docs/en/authentication#credential-management
+
 ## Context
 
 Inject additional context from outside CLAUDE.md with:

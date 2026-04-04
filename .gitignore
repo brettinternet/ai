@@ -8,6 +8,7 @@ AGENTS.local.md
 /Taskfile.yml
 
 .trees
+docs/superpowers
 
 .env
 mise.local.toml
