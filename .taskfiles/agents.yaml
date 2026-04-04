@@ -17,8 +17,8 @@ tasks:
     cmds:
       - mkdir -p "{{.AGENTS_DEST}}"
       - |
-          for agent in "{{.AGENTS_SRC}}"/*.md; do
-            name=$(basename "$agent")
-            cp "$agent" "{{.AGENTS_DEST}}/$name"
-            echo "Updated: $name"
-          done
+        for agent in "{{.AGENTS_SRC}}"/*.md; do
+          name=$(basename "$agent")
+          cp "$agent" "{{.AGENTS_DEST}}/$name"
+          echo "Updated: $name"
+        done

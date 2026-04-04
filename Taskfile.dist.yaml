@@ -55,12 +55,12 @@ tasks:
   check:
     desc: Run code checks
     cmds:
-      - dprint check
+      - prettier --check .
 
   fix:
     desc: Run code fixes
     cmds:
-      - dprint fmt
+      - prettier --write .
 
   test:
     desc: Run tests

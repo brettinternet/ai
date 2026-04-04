@@ -29,12 +29,12 @@ tasks:
     desc: Setup Chromium MCP
     cmds:
       - |
-          CHROMIUM="/Applications/Chromium.app/Contents/MacOS/Chromium"
-          if [ -x "$CHROMIUM" ]; then
-            claude mcp add -s user chrome-devtools -- bunx chrome-devtools-mcp@latest --executable-path "$CHROMIUM" || true
-          else
-            claude mcp add -s user chrome-devtools -- bunx chrome-devtools-mcp@latest || true
-          fi
+        CHROMIUM="/Applications/Chromium.app/Contents/MacOS/Chromium"
+        if [ -x "$CHROMIUM" ]; then
+          claude mcp add -s user chrome-devtools -- bunx chrome-devtools-mcp@latest --executable-path "$CHROMIUM" || true
+        else
+          claude mcp add -s user chrome-devtools -- bunx chrome-devtools-mcp@latest || true
+        fi
 
   setup-user:linear:
     desc: Setup user Linear MCP
@@ -45,7 +45,7 @@ tasks:
     desc: Setup user GitHub MCP (requires GITHUB_TOKEN env var)
     cmds:
       - |-
-          claude mcp add -s user --transport http -H "Authorization: Bearer $GITHUB_TOKEN" github https://api.githubcopilot.com/mcp/ || true
+        claude mcp add -s user --transport http -H "Authorization: Bearer $GITHUB_TOKEN" github https://api.githubcopilot.com/mcp/ || true
 
   zen:
     desc: Zen MCP server with .env

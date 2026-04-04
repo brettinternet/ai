@@ -15,7 +15,7 @@ In Claude Code, run `/notifications off` or add to your settings:
 ```json
 // ~/.claude/settings.json
 {
-  "notifications": false
+    "notifications": false
 }
 ```
 

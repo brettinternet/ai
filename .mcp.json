@@ -2,10 +2,7 @@
   "mcpServers": {
     "basic-memory": {
       "command": "uvx",
-      "args": [
-        "basic-memory",
-        "mcp"
-      ]
+      "args": ["basic-memory", "mcp"]
     },
     "sequential-thinking": {
       "command": "uvx",
