@@ -30,6 +30,7 @@ tasks:
     cmds:
       - task: setup:init
       - task: setup-user
+      # - rtk init
 
   setup-user:
     desc: Setup user commands

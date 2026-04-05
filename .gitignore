@@ -2,6 +2,7 @@
 .claude.json
 CLAUDE.local.md
 AGENTS.local.md
+.rtk
 
 .task
 /Taskfile.yaml
