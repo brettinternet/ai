@@ -6,10 +6,14 @@ tasks:
   setup-user:
     desc: Install Claude Code plugins for user
     cmds:
-      - task: install
-        vars: { PLUGIN: "superpowers@claude-plugins-official" }
+      - task: claude:install
+        vars:
+          PLUGIN: superpowers@claude-plugins-official
+      # - task: opencode:install
+      #   vars:
+      #     PLUGIN: superpowers@git+https://github.com/obra/superpowers.git
 
-  install:
+  claude:install:
     desc: Install a plugin if not already installed
     internal: true
     requires:
@@ -22,17 +26,27 @@ tasks:
     cmds:
       - claude plugin install -s user {{.PLUGIN}}
 
-  update:
+  # Running at $HOME doesn't install for global user, it just installs in $HOME. No way from CLI.
+  # opencode:install:
+  #   desc: Install a plugin
+  #   internal: true
+  #   # dir: /{{.HOME}}
+  #   requires:
+  #     vars: [PLUGIN]
+  #   cmds:
+  #     - opencode plugin {{.PLUGIN}}
+
+  claude:update:
     desc: Update all installed Claude Code plugins
     cmds:
       - claude plugin update superpowers
 
-  uninstall:
+  claude:uninstall:
     desc: Uninstall all managed Claude Code plugins
     cmds:
       - claude plugin uninstall superpowers || true
 
-  enable:
+  claude:enable:
     desc: "Enable a plugin (PLUGIN=name, or -- name) or all managed plugins if no arg given"
     cmds:
       - |
@@ -44,7 +58,7 @@ tasks:
           claude plugin enable superpowers
         fi
 
-  disable:
+  claude:disable:
     desc: "Disable a plugin (PLUGIN=name, or -- name) or all plugins if no arg given"
     cmds:
       - |
