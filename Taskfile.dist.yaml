@@ -39,6 +39,8 @@ tasks:
   setup-user:
     desc: Setup user commands
     cmds:
+      - mkdir -p {{.OPENCODE_CONFIG_DIR}}
+      - mkdir -p {{.CLAUDE_CONFIG_DIR}}
       - task: copy-user-config
       - task: commands:setup-user
       - task: mcp:setup-user
