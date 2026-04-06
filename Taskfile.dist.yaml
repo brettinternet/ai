@@ -8,6 +8,10 @@ env:
   PYTHONDONTWRITEBYTECODE: "1"
   VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
 
+vars:
+  OPENCODE_CONFIG_DIR: "{{.HOME}}/.config/opencode"
+  CLAUDE_CONFIG_DIR: "{{.HOME}}/.claude"
+
 includes:
   setup: .taskfiles/setup.yaml
   hooks: .taskfiles/hooks.yaml
@@ -35,16 +39,23 @@ tasks:
   setup-user:
     desc: Setup user commands
     cmds:
+      - task: copy-user-config
       - task: commands:setup-user
       - task: mcp:setup-user
       - task: agents:setup-user
       - task: plugin:setup-user
-      - task: copy-user-claude-md
+      - task: copy-user-agents-md
 
-  copy-user-claude-md:
-    desc: Copy user/CLAUDE.md to ~/.claude/CLAUDE.md
+  copy-user-config:
+    desc: Copy configs
     cmds:
-      - cp -f user/CLAUDE.md ~/.claude/CLAUDE.md
+      - cp -f .opencode/opencode.json {{.OPENCODE_CONFIG_DIR}}/opencode.json
+
+  copy-user-agents-md:
+    desc: Copy user/AGENTS.md to agent configs
+    cmds:
+      - cp -f user/AGENTS.md {{.CLAUDE_CONFIG_DIR}}/CLAUDE.md
+      - cp -f user/AGENTS.md {{.OPENCODE_CONFIG_DIR}}/AGENTS.md
 
   claude:docker:
     desc: Start AI agent in Docker

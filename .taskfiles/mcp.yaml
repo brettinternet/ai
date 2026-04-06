@@ -2,36 +2,44 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
+vars:
+  MACOS_CHROMIUM_PATH: "/Applications/Chromium.app/Contents/MacOS/Chromium"
+
 tasks:
   setup-user:
     desc: Setup user MCPs
+    cmds:
+      - task: claude:setup-user
+      - task: opencode:setup-user
+
+  remove-user:
+    desc: Setup user MCPs
+    cmds:
+      - claude mcp remove -s user context7 || true
+      - claude mcp remove -s user chrome-devtools || true
+      - claude mcp remove -s user time || true
+      - claude mcp remove -s user linear || true
+      - claude mcp remove -s user github || true
+      - opencode mcp remove context7 || true
+      - opencode mcp remove chrome-devtools || true
+      - opencode mcp remove time || true
+      - opencode mcp remove linear || true
+      - opencode mcp remove github || true
+
+  claude:setup-user:
+    desc: Setup Claude
     cmds:
       - claude mcp add -s user context7 -- bunx @upstash/context7-mcp@latest || true
       - claude mcp add -s user time -- uvx mcp-server-time || true
       - claude mcp add -s user git -- uvx mcp-server-git || true
       - task: setup-user:chromium
 
-  remove-user:
-    desc: Setup user MCPs
-    cmds:
-      - claude mcp remove -s user graphiti || true
-      - claude mcp remove -s user basic-memory || true
-      - claude mcp remove -s user context7 || true
-      - claude mcp remove -s user sequential-thinking || true
-      - claude mcp remove -s user playwright || true
-      - claude mcp remove -s user chrome-devtools || true
-      - claude mcp remove -s user time || true
-      - claude mcp remove -s user linear || true
-      - claude mcp remove -s user serena || true
-      - claude mcp remove -s user github || true
-
   setup-user:chromium:
     desc: Setup Chromium MCP
     cmds:
       - |
-        CHROMIUM="/Applications/Chromium.app/Contents/MacOS/Chromium"
-        if [ -x "$CHROMIUM" ]; then
-          claude mcp add -s user chrome-devtools -- bunx chrome-devtools-mcp@latest --executable-path "$CHROMIUM" || true
+        if [ -x "{{.MACOS_CHROMIUM_PATH}}" ]; then
+          claude mcp add -s user chrome-devtools -- bunx chrome-devtools-mcp@latest --executable-path "{{.MACOS_CHROMIUM_PATH}}" || true
         else
           claude mcp add -s user chrome-devtools -- bunx chrome-devtools-mcp@latest || true
         fi
@@ -40,17 +48,61 @@ tasks:
     desc: Setup user Linear MCP
     cmds:
       - claude mcp add -s user --transport sse linear https://mcp.linear.app/sse || true
+      - task: opencode:setup-user:merge
+        vars:
+          MCP_NAME: git
+          MCP_JSON: '{"type":"local","command":["uvx","mcp-server-git"]}'
 
-  setup-user:github:
-    desc: Setup user GitHub MCP (requires GITHUB_TOKEN env var)
+  opencode:setup-user:
+    desc: Setup user MCPs for OpenCode
     cmds:
-      - |-
-        claude mcp add -s user --transport http -H "Authorization: Bearer $GITHUB_TOKEN" github https://api.githubcopilot.com/mcp/ || true
+      - task: opencode:setup-user:merge
+        vars:
+          MCP_NAME: context7
+          MCP_JSON: '{"type":"remote","url":"https://mcp.context7.com/mcp"}'
+      - task: opencode:setup-user:merge
+        vars:
+          MCP_NAME: time
+          MCP_JSON: '{"type":"local","command":["uvx","mcp-server-time"]}'
+      - task: opencode:setup-user:merge
+        vars:
+          MCP_NAME: git
+          MCP_JSON: '{"type":"local","command":["uvx","mcp-server-git"]}'
+      - task: opencode:setup-user:chromium
 
-  zen:
-    desc: Zen MCP server with .env
-    cmd: >-
-      uvx
-      --from
-      git+https://github.com/BeehiveInnovations/zen-mcp-server.git
-      zen-mcp-server
+  opencode:setup-user:chromium:
+    desc: Setup Chromium MCP for OpenCode
+    cmd:
+      task: opencode:setup-user:merge
+      vars:
+        MCP_NAME: chrome-devtools
+        MCP_JSON:
+          sh: |-
+            if [ -x "{{.MACOS_CHROMIUM_PATH}}" ]; then
+              echo "{\"type\":\"local\",\"command\":[\"bunx\",\"chrome-devtools-mcp@latest\",\"--executable-path\",\"{{.MACOS_CHROMIUM_PATH}}\"]}"
+            else
+              echo '{"type":"local","command":["bunx","chrome-devtools-mcp@latest"]}'
+            fi
+
+  opencode:setup-user:linear:
+    desc: Setup Linear MCP for OpenCode
+    cmds:
+      - task: opencode:setup-user:merge
+        vars:
+          MCP_NAME: linear
+          MCP_JSON: '{"type":"remote","url":"https://mcp.linear.app/sse"}'
+
+  opencode:setup-user:merge:
+    desc: Merge a single MCP entry into OpenCode config
+    internal: true
+    requires:
+      vars: [MCP_NAME, MCP_JSON]
+    cmds:
+      - mkdir -p {{.OPENCODE_CONFIG_DIR}}
+      - |
+        CONFIG="{{.OPENCODE_CONFIG_DIR}}/opencode.json"
+        if [ ! -f "$CONFIG" ]; then
+          echo '{"$schema":"https://opencode.ai/config.json"}' > "$CONFIG"
+        fi
+        jq --arg name "{{.MCP_NAME}}" --argjson val '{{.MCP_JSON}}' \
+          '.mcp[$name] = $val' "$CONFIG" > "$CONFIG.tmp" && mv "$CONFIG.tmp" "$CONFIG"

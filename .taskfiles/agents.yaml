@@ -3,22 +3,32 @@
 version: "3"
 
 vars:
-  AGENTS_SRC: "{{.ROOT_DIR}}/.claude/agents"
-  AGENTS_DEST: "{{.HOME}}/.claude/agents"
+  AGENTS_SRC: "{{.ROOT_DIR}}/agents"
+  CLAUDE_AGENTS_DEST: "{{.HOME}}/.claude/agents"
+  OPENCODE_AGENTS_DEST: "{{.HOME}}/.config/opencode/agents"
 
 tasks:
   setup-user:
     desc: Add agents to user
     cmds:
       - task: update
+        vars:
+          TARGET_DIR: "{{.CLAUDE_AGENTS_DEST}}"
+      # TODO: some metadata fields don't match between claude and opencode
+      # - task: update
+      #   vars:
+      #     TARGET_DIR: "{{.OPENCODE_AGENTS_DEST}}"
 
   update:
-    desc: Force update all Claude Code agents globally (~/.claude/agents/)
+    desc: Force update all agents to directory
+    internal: true
+    requires:
+      vars: [TARGET_DIR]
     cmds:
-      - mkdir -p "{{.AGENTS_DEST}}"
+      - mkdir -p "{{.TARGET_DIR}}"
       - |
         for agent in "{{.AGENTS_SRC}}"/*.md; do
           name=$(basename "$agent")
-          cp "$agent" "{{.AGENTS_DEST}}/$name"
+          cp "$agent" "{{.TARGET_DIR}}/$name"
           echo "Updated: $name"
         done

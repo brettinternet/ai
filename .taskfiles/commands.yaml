@@ -3,21 +3,27 @@
 version: "3"
 
 vars:
-  REPO_COMMANDS_DIR: "{{.ROOT_DIR}}/.claude/commands"
-  USER_COMMANDS_DIR: $HOME/.claude/commands
+  REPO_COMMANDS_DIR: "{{.ROOT_DIR}}/commands"
+  CLAUDE_USER_COMMANDS_DIR: "{{.HOME}}/.claude/commands"
+  OPENCODE_USER_COMMANDS_DIR: "{{.HOME}}/.config/opencode/commands"
 
 tasks:
   setup-user:
     desc: Setup commands for user
     cmds:
-      - mkdir -p {{.USER_COMMANDS_DIR}}
       - task: copy-commands
+        vars:
+          COMMANDS_DIR: "{{.CLAUDE_USER_COMMANDS_DIR}}"
+      - task: copy-commands
+        vars:
+          COMMANDS_DIR: "{{.OPENCODE_USER_COMMANDS_DIR}}"
 
   copy-commands:
-    desc: Copy commands from repository to user directory
-    vars:
-      USER_COMMANDS_DIR_EXPANDED:
-        sh: realpath {{.USER_COMMANDS_DIR}}
+    desc: Symlink commands from repository to user directory
+    internal: true
+    requires:
+      vars: [REPO_COMMANDS_DIR, COMMANDS_DIR]
     cmds:
-      - find {{.USER_COMMANDS_DIR_EXPANDED}} -maxdepth 1 -type l -lname "{{.REPO_COMMANDS_DIR}}/*" -delete
-      - for file in {{.REPO_COMMANDS_DIR}}/*.md; do ln -sf "$file" {{.USER_COMMANDS_DIR_EXPANDED}}/; done
+      - mkdir -p {{.COMMANDS_DIR}}
+      - find {{.COMMANDS_DIR}} -maxdepth 1 -type l -lname "{{.REPO_COMMANDS_DIR}}/*" -delete
+      - for file in {{.REPO_COMMANDS_DIR}}/*.md; do ln -sf "$file" {{.COMMANDS_DIR}}/; done
