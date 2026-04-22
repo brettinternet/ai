@@ -29,7 +29,8 @@ tasks:
   claude:setup-user:
     desc: Setup Claude
     cmds:
-      - claude mcp add -s user context7 -- bunx @upstash/context7-mcp@latest || true
+      - claude mcp add -s user context7 -- bunx @upstash/context7-mcp@latest ||
+        true
       - claude mcp add -s user time -- uvx mcp-server-time || true
       - claude mcp add -s user git -- uvx mcp-server-git || true
       - task: setup-user:chromium
@@ -47,7 +48,18 @@ tasks:
   setup-user:linear:
     desc: Setup user Linear MCP
     cmds:
-      - claude mcp add -s user --transport sse linear https://mcp.linear.app/sse || true
+      - claude mcp add -s user --transport sse linear https://mcp.linear.app/sse
+        || true
+      - task: opencode:setup-user:merge
+        vars:
+          MCP_NAME: git
+          MCP_JSON: '{"type":"local","command":["uvx","mcp-server-git"]}'
+
+  setup-user:jira:
+    desc: Setup user Jira MCP
+    cmds:
+      - claude mcp add -s user --transport sse linear https://mcp.linear.app/sse
+        || true
       - task: opencode:setup-user:merge
         vars:
           MCP_NAME: git

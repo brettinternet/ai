@@ -34,6 +34,7 @@ tasks:
     cmds:
       - task: setup:init
       - task: setup-user
+      - task: create-claude-md
       # - rtk init
 
   setup-user:
@@ -79,26 +80,33 @@ tasks:
   test:
     desc: Run tests
 
+  # Required until Claude Code supports `AGENTS.md` https://github.com/anthropics/claude-code/issues/6235
+  create-claude-md:
+    desc: Create CLAUDE.md files with @AGENTS.md import
+    dir: /{{.ROOT_DIR}}
+    cmds:
+      - find . -type f -name "AGENTS.md" -exec sh -c 'printf "@AGENTS.md\n" >
+        "$(dirname "$1")/CLAUDE.md"' _ {} \;
+
+  clean:
+    desc: Clean AI environment
+    cmds:
+      - find . -type f -name "CLAUDE.md" -delete
+
   docker:build:
     desc: Build Docker image for AI agent
     aliases: [claude:docker:build]
     cmd: >-
-      docker build
-      -t brettinternet/claude:latest
-      -f Dockerfile.claude .
+      docker build -t brettinternet/claude:latest -f Dockerfile.claude .
 
   docker:run:
     desc: Run Docker container for AI agent
     aliases: [claude:docker:run]
     cmd: >-
-      docker run --rm -it
-      --name claude
-      -e CLAUDE_USER_ID=$(id -u)
-      -e CLAUDE_GROUP_ID=$(id -g)
-      -v ~/.claude:/home/claude/.claude
-      -v ~/.gitconfig:/home/claude/.gitconfig:ro
-      -v ~/.claude.json:/home/claude/.claude.json
-      -v "$(pwd):/workspace"
+      docker run --rm -it --name claude -e CLAUDE_USER_ID=$(id -u) -e
+      CLAUDE_GROUP_ID=$(id -g) -v ~/.claude:/home/claude/.claude -v
+      ~/.gitconfig:/home/claude/.gitconfig:ro -v
+      ~/.claude.json:/home/claude/.claude.json -v "$(pwd):/workspace"
       brettinternet/claude:latest
 
   ccusage:
@@ -115,5 +123,6 @@ tasks:
   remote:
     desc: Open the remote GitHub repository in default browser
     cmd: >
-      {{if eq OS "darwin"}}open{{else if eq OS "linux"}}xdg-open{{else if eq OS "windows"}}start{{else}}open{{end}}
-      $(git remote get-url origin | sed 's/\.git$//' | sed 's|git@github.com:|https://github.com/|')
+      {{if eq OS "darwin"}}open{{else if eq OS "linux"}}xdg-open{{else if eq OS
+      "windows"}}start{{else}}open{{end}} $(git remote get-url origin | sed
+      's/\.git$//' | sed 's|git@github.com:|https://github.com/|')
