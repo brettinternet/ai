@@ -6,12 +6,25 @@ tasks:
   setup-user:
     desc: Install Claude Code plugins for user
     cmds:
+      - task: claude:marketplace
+        vars:
+          SOURCE: pcvelz/superpowers
       - task: claude:install
         vars:
-          PLUGIN: superpowers@claude-plugins-official
+          PLUGIN: superpowers-extended-cc@superpowers-extended-cc-marketplace
       # - task: opencode:install
       #   vars:
       #     PLUGIN: superpowers@git+https://github.com/obra/superpowers.git
+
+  claude:marketplace:
+    desc: Register a marketplace
+    internal: true
+    requires:
+      vars: [SOURCE]
+    status:
+      - claude plugin marketplace list | grep -q "{{.SOURCE}}"
+    cmds:
+      - claude plugin marketplace add {{.SOURCE}}
 
   claude:install:
     desc: Install a plugin if not already installed
@@ -47,7 +60,8 @@ tasks:
       - claude plugin uninstall superpowers || true
 
   claude:enable:
-    desc: "Enable a plugin (PLUGIN=name, or -- name) or all managed plugins if no arg given"
+    desc: "Enable a plugin (PLUGIN=name, or -- name) or all managed plugins if no
+      arg given"
     cmds:
       - |
         if [ -n "{{.PLUGIN}}" ]; then
