@@ -48,22 +48,23 @@ tasks:
   setup-user:linear:
     desc: Setup user Linear MCP
     cmds:
-      - claude mcp add -s user --transport sse linear https://mcp.linear.app/sse
+      - >-
+        claude mcp add -s user --transport sse linear https://mcp.linear.app/sse
         || true
       - task: opencode:setup-user:merge
         vars:
-          MCP_NAME: git
-          MCP_JSON: '{"type":"local","command":["uvx","mcp-server-git"]}'
+          MCP_NAME: linear
+          MCP_JSON: '{"type":"remote","url":"https://mcp.linear.app/sse"}'
 
-  setup-user:jira:
-    desc: Setup user Jira MCP
+  setup-user:atlassian:
+    desc: Setup user Atlassian MCP
     cmds:
-      - claude mcp add -s user --transport sse linear https://mcp.linear.app/sse
-        || true
+      - >-
+        claude mcp add -s user atlassian https://mcp.atlassian.com/v1/mcp || true
       - task: opencode:setup-user:merge
         vars:
-          MCP_NAME: git
-          MCP_JSON: '{"type":"local","command":["uvx","mcp-server-git"]}'
+          MCP_NAME: atlassian
+          MCP_JSON: '{"type":"remote","url":"https://mcp.atlassian.com/v1/mcp"}'
 
   opencode:setup-user:
     desc: Setup user MCPs for OpenCode
@@ -95,14 +96,6 @@ tasks:
             else
               echo '{"type":"local","command":["bunx","chrome-devtools-mcp@latest"]}'
             fi
-
-  opencode:setup-user:linear:
-    desc: Setup Linear MCP for OpenCode
-    cmds:
-      - task: opencode:setup-user:merge
-        vars:
-          MCP_NAME: linear
-          MCP_JSON: '{"type":"remote","url":"https://mcp.linear.app/sse"}'
 
   opencode:setup-user:merge:
     desc: Merge a single MCP entry into OpenCode config
