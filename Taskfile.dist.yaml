@@ -80,6 +80,99 @@ tasks:
   test:
     desc: Run tests
 
+  devtools:chrome:
+    desc: Launch Chromium/Chrome with remote debugging on port 9222
+    silent: true
+    summary: |
+      Launches Chromium or Chrome with DevTools remote debugging enabled.
+
+      Usage: task devtools:chrome -- http://localhost:5173
+      Optional: BROWSER_BIN=/path/to/chrome task devtools:chrome -- <url>
+    cmd: |
+      set -eu
+
+      app_url="{{.CLI_ARGS}}"
+      endpoint="http://127.0.0.1:9222/json/list"
+      profile="${TMPDIR:-/tmp}/ai-chrome-devtools-profile"
+      log_file="${TMPDIR:-/tmp}/ai-chrome-devtools.log"
+      browser=""
+      tabs=""
+
+      if [ -z "$app_url" ]; then
+        printf 'Usage: task devtools:chrome -- <app-url>\n' >&2
+        exit 2
+      fi
+
+      if [ -n "${BROWSER_BIN:-}" ]; then
+        browser="$BROWSER_BIN"
+      elif [ -n "${CHROME_BIN:-}" ]; then
+        browser="$CHROME_BIN"
+      fi
+
+      if [ -z "$browser" ]; then
+        for candidate in \
+          "/Applications/Chromium.app/Contents/MacOS/Chromium" \
+          "$HOME/Applications/Chromium.app/Contents/MacOS/Chromium" \
+          "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+          "$HOME/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+          "/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary"
+        do
+          if [ -x "$candidate" ]; then
+            browser="$candidate"
+            break
+          fi
+        done
+      fi
+
+      if [ -z "$browser" ]; then
+        for candidate in chromium chromium-browser google-chrome google-chrome-stable chrome; do
+          if command -v "$candidate" >/dev/null 2>&1; then
+            browser="$(command -v "$candidate")"
+            break
+          fi
+        done
+      fi
+
+      if [ -z "$browser" ]; then
+        printf 'Could not find Chromium or Chrome. Set BROWSER_BIN=/path/to/browser and try again.\n' >&2
+        exit 1
+      fi
+
+      mkdir -p "$profile"
+      nohup "$browser" \
+        --remote-debugging-address=127.0.0.1 \
+        --remote-debugging-port=9222 \
+        --user-data-dir="$profile" \
+        "$app_url" >"$log_file" 2>&1 &
+
+      for attempt in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do
+        if tabs="$(curl -fsS "$endpoint" 2>/dev/null)"; then
+          case "$tabs" in
+            *"\"url\": \"$app_url\""*|*"\"url\": \"$app_url/\""*)
+              printf 'DevTools endpoint: %s\n' "$endpoint"
+              printf '%s\n' "$tabs"
+              exit 0
+              ;;
+          esac
+
+          if [ "$app_url" = "about:blank" ]; then
+            printf 'DevTools endpoint: %s\n' "$endpoint"
+            printf '%s\n' "$tabs"
+            exit 0
+          fi
+        fi
+        sleep 0.5
+      done
+
+      if [ -n "$tabs" ]; then
+        printf 'DevTools endpoint responded, but the requested URL was not found: %s\n' "$app_url" >&2
+        printf '%s\n' "$tabs" >&2
+      else
+        printf 'Timed out waiting for DevTools endpoint: %s\n' "$endpoint" >&2
+        printf 'Browser log: %s\n' "$log_file" >&2
+      fi
+      exit 1
+
   # Required until Claude Code supports `AGENTS.md` https://github.com/anthropics/claude-code/issues/6235
   create-claude-md:
     desc: Create CLAUDE.md files with @AGENTS.md import
