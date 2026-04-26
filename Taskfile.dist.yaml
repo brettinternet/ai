@@ -47,25 +47,21 @@ tasks:
       - task: mcp:setup-user
       - task: agents:setup-user
       - task: plugin:setup-user
-      - task: copy-user-agents-md
+      - task: link-user-agents-md
 
   copy-user-config:
     desc: Copy configs
     cmds:
       - cp -f .opencode/opencode.json {{.OPENCODE_CONFIG_DIR}}/opencode.json
 
-  copy-user-agents-md:
-    desc: Copy user/AGENTS.md to agent configs
+  link-user-agents-md:
+    desc: Symlink user/AGENTS.md to agent configs
+    aliases: [copy-user-agents-md]
     cmds:
-      - cp -f user/AGENTS.md {{.CLAUDE_CONFIG_DIR}}/CLAUDE.md
-      - cp -f user/AGENTS.md {{.OPENCODE_CONFIG_DIR}}/AGENTS.md
-
-  claude:docker:
-    desc: Start AI agent in Docker
-    aliases: [claude:docker]
-    cmds:
-      - task: docker:build
-      - task: docker:run
+      - mkdir -p "{{.CLAUDE_CONFIG_DIR}}" "{{.OPENCODE_CONFIG_DIR}}"
+      - rm -f "{{.CLAUDE_CONFIG_DIR}}/CLAUDE.md" "{{.OPENCODE_CONFIG_DIR}}/AGENTS.md"
+      - ln -s "{{.ROOT_DIR}}/user/AGENTS.md" "{{.CLAUDE_CONFIG_DIR}}/CLAUDE.md"
+      - ln -s "{{.ROOT_DIR}}/user/AGENTS.md" "{{.OPENCODE_CONFIG_DIR}}/AGENTS.md"
 
   check:
     desc: Run code checks
@@ -185,22 +181,6 @@ tasks:
     desc: Clean AI environment
     cmds:
       - find . -type f -name "CLAUDE.md" -delete
-
-  docker:build:
-    desc: Build Docker image for AI agent
-    aliases: [claude:docker:build]
-    cmd: >-
-      docker build -t brettinternet/claude:latest -f Dockerfile.claude .
-
-  docker:run:
-    desc: Run Docker container for AI agent
-    aliases: [claude:docker:run]
-    cmd: >-
-      docker run --rm -it --name claude -e CLAUDE_USER_ID=$(id -u) -e
-      CLAUDE_GROUP_ID=$(id -g) -v ~/.claude:/home/claude/.claude -v
-      ~/.gitconfig:/home/claude/.gitconfig:ro -v
-      ~/.claude.json:/home/claude/.claude.json -v "$(pwd):/workspace"
-      brettinternet/claude:latest
 
   ccusage:
     desc: Run ccusage tool

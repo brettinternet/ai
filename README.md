@@ -10,10 +10,10 @@ Share commands, agents and setup MCP servers for host user:
 task setup-user
 ```
 
-## Commands
+## Tasks
 
-Run containerized Claude:
+List available tasks:
 
 ```sh
-task claude:docker
+task -l
 ```
