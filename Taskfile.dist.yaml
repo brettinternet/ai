@@ -11,6 +11,7 @@ env:
 vars:
   OPENCODE_CONFIG_DIR: "{{.HOME}}/.config/opencode"
   CLAUDE_CONFIG_DIR: "{{.HOME}}/.claude"
+  CODEX_CONFIG_DIR: "{{.HOME}}/.codex"
 
 includes:
   setup: .taskfiles/setup.yaml
@@ -59,9 +60,11 @@ tasks:
     aliases: [copy-user-agents-md]
     cmds:
       - mkdir -p "{{.CLAUDE_CONFIG_DIR}}" "{{.OPENCODE_CONFIG_DIR}}"
-      - rm -f "{{.CLAUDE_CONFIG_DIR}}/CLAUDE.md" "{{.OPENCODE_CONFIG_DIR}}/AGENTS.md"
+      - rm -f "{{.CLAUDE_CONFIG_DIR}}/CLAUDE.md"
+        "{{.OPENCODE_CONFIG_DIR}}/AGENTS.md"
       - ln -s "{{.ROOT_DIR}}/user/AGENTS.md" "{{.CLAUDE_CONFIG_DIR}}/CLAUDE.md"
       - ln -s "{{.ROOT_DIR}}/user/AGENTS.md" "{{.OPENCODE_CONFIG_DIR}}/AGENTS.md"
+      - ln -s "{{.ROOT_DIR}}/user/AGENTS.md" "{{.CODEX_CONFIG_DIR}}/AGENTS.md"
 
   check:
     desc: Run code checks
